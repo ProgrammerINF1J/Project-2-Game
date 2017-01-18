@@ -1,1 +1,40 @@
 
+import pygame
+pygame.init()
+
+width = 800
+height = 600
+white = 255, 255, 255
+
+def process_events():
+    """Checks if there are any active events it returns True or False"""
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            # Give the signal to quit
+            return True
+    
+    return False
+
+def game_intro():
+    """"""
+    intro = True
+
+    while intro:
+
+
+
+def game(color, width, height):
+
+    size = width, height #defines the height and width of the game window
+
+    display = pygame.display.set_mode(size) #defines the screen
+
+    pygame.display.set_caption("Euromast: The Game") #Defines the title of the game
+    
+    #the game loop
+    while not process_events():
+        display.fill(color)
+
+        pygame.display.update()
+
+game(white, width, height)
