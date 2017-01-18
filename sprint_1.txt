@@ -63,10 +63,7 @@ def game(color, width, height):
     
     #the game loop
     while not process_events():
-        
-        
-        
-        
+
         if not start_button.Pressed:
              display.fill(color)
              display.blit(logo, (width//5 ,height//4))
@@ -78,9 +75,12 @@ def game(color, width, height):
              exit_button.draw_text("Exit" , display)
         else: 
             display.fill(red)
+            text_start = font.render("Game has started",1,black)
+            display.blit(text_start,(200, 150)) 
         if exit_button.Pressed:
             sys.exit()
-       
-       
-        
+     
         pygame.display.update()
+
+
+game(white, width, height)
