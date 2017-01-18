@@ -15,11 +15,6 @@ def process_events():
     
     return False
 
-def game_intro():
-    """"""
-    intro = True
-
-    while intro:
 
 
 
