@@ -25,6 +25,7 @@ for row in data:
         player2_name = row[1]
         player2_score = row[2]'''
 
+# updatescore
 def update_score(name, score):
     print(name, score)
     try:
@@ -32,3 +33,12 @@ def update_score(name, score):
     except Exception as error:
         print(error)
     conn.commit()
+
+#reset score
+def reset():
+    try:
+        cc.execute("""UPDATE player SET score=%s WHERE name=%s""", (0, 'player1'))
+    except Exception as error:
+        print(error)
+    conn.commit()
+#reset()

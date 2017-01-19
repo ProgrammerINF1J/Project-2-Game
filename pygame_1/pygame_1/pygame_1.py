@@ -1,6 +1,6 @@
 import math
 import pygame
-from database import *      
+from database import *
 
 #screen size
 width = 800
@@ -99,8 +99,6 @@ def program():
         
         # Flip the screen
         pygame.display.flip()
-
-
         
 # Start the program
 program()
