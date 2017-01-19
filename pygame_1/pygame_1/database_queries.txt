@@ -4,3 +4,5 @@ create table player (
     id int not null primary key
 )
 
+#UPDATE player SET score=0 WHERE name='player1';
+select * from player
