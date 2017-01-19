@@ -1,14 +1,13 @@
 import math
 import pygame
-from database import *
-
-        
+from database import *      
 
 class Player:
     def __init__(self, x, y, r):
         self.x = x
         self.y = y
         self.r = r
+        self.score = player1_score
 
     def update(self):
         keys = pygame.key.get_pressed()
@@ -22,7 +21,7 @@ class Player:
             self.y -= 1
         elif keys[pygame.K_DOWN]:
             self.y += 1
-    
+
     def draw(self, screen):
         pygame.draw.circle(screen, (0, 255, 0),
                            (int(self.x), int(self.y)), int(self.r))
@@ -35,14 +34,14 @@ class Enemy:
         self.r = r
         self.health = 255
 
-    def update(self, player, player1_score):
+    def update(self, player, player_addscore):
         # If this enemy is colliding with the player
         if math.sqrt((player.x - self.x) ** 2 +
                      (player.y - self.y) ** 2) < self.r + player.r:
             self.health -= 1
             if self.health == 0:
                 self.health = 255
-                player1_score = player1_score + 10
+                player.score += player_addscore
 
     def draw(self, screen):
         pygame.draw.circle(screen, (self.health, 0, 0),
@@ -94,7 +93,7 @@ def program():
         player.draw(screen)
         
         # Draw the score text
-        score_text = font.render(str(player1_score), 1, (255, 255, 255))
+        score_text = font.render(str(player.score), 1, (255, 255, 255))
         screen.blit(score_text, (16, 16))
         
         # Flip the screen
