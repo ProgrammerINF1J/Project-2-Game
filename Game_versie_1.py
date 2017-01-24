@@ -1,5 +1,4 @@
-import sys, pygame
-import time
+import sys, pygame, time, random
 pygame.init()
 
 #Globals
@@ -65,6 +64,10 @@ class Node():
         text = font.render("Player " + str(n) + ": " + self.Value,1, black)
         display.blit(text, (x, y))
         return self.Tail.print_pygame(x, y + 30, n+1)
+    def select(self, index): 
+        for i in range(index):
+            self = self.Tail
+        return self.Value
  
 class Empty():
     def __init__(self):
@@ -165,6 +168,13 @@ def player_list(amount_players):
     else:
          return empty
 
+def next_player(list):
+    if not list.IsEmpty:
+        return list.Tail
+    else: 
+        return 0
+
+
 def game(color, width, height):
     """Defines the entire game, put the display functions inside the while loop """
     def start():
@@ -217,13 +227,14 @@ def game(color, width, height):
     rules_button = Button((5*width)//16, height//2, 50, 100, blue)
     back_button = Button(width -150, 50, 50,100, red)
     rules_button2 = Button(width - 150, 500, 50, 100, blue)
-    players = Node("" , empty)
+    players = Node("" , empty) 
+    
     
     pygame.display.set_caption("Euromast: The Game") #Defines the title of the game
     
     #the game loop
     while not process_events():
-        
+          key = pygame.key.get_pressed()
           display.fill(color)
           if check_button() == False:#The menu will only apear when nothing is pressed
                 display_menu() #When you press a button the menu will disappear
@@ -234,9 +245,12 @@ def game(color, width, height):
           if start_button.Pressed:
               back() 
               players.print_pygame(width - 400, 50, 1)
-              tmp_players = players
-              turn = font.render(tmp_players.Value + " its your turn", 1, orange)
+              x = random.randint(0,3)
+              turn = font.render(players.select(x) + " its your turn", 1, orange)
               display.blit(turn, (400, 30))
+              pygame.time.wait(100)
+              
+              
               
 
 
