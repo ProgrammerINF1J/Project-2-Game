@@ -8,7 +8,5 @@ color  = 79, 116, 175
 
 screen = pygame.display.set_mode(size)
 
-
-
 screen.fill(color)
 pygame.display.flip()
