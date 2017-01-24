@@ -1,5 +1,4 @@
-import sys, pygame
-import time
+import sys, pygame, time, random
 pygame.init()
 
 #Globals
@@ -19,6 +18,8 @@ blue = 0, 0, 255
 light_blue = 60, 130, 240
 orange = 230, 100, 20
 light_orange = 230, 120, 60
+turquise = 75, 220, 230
+yellow = 225, 200, 10
 
 font = pygame.font.Font(None, 30)#Grote text, wordt gebruikt voor de buttons
 font2 = pygame.font.Font(None, 20)#Kleine text, wordt gebruikt voor het input scherm
@@ -65,6 +66,10 @@ class Node():
         text = font.render("Player " + str(n) + ": " + self.Value,1, black)
         display.blit(text, (x, y))
         return self.Tail.print_pygame(x, y + 30, n+1)
+    def select(self, index): 
+        for i in range(index):
+            self = self.Tail
+        return self.Value
  
 class Empty():
     def __init__(self):
@@ -122,8 +127,60 @@ class Button():
             pygame.draw.rect(surface, color, (self.X, self.Y, self.Width, self.Height))
             if click[0] == 1:
                 self.Pressed = True
-   
-  
+
+class McQuestion():
+    def __init__(self, question, option_a, option_b, option_c, option_d, correct):
+        self.Question = question
+        self.Option_A = option_a
+        self.Option_B = option_b
+        self.Option_C = option_c
+        self.Option_D = option_d
+        self.Correct = correct
+    def draw(self, surface):
+        pygame.draw.rect(surface,turquise, (width//4, height//4, 400, 250))
+        pygame.draw.rect(surface, yellow ,(width//4, height//4, 400, 50))
+        question = font.render(self.Question, 1, black)
+        surface.blit(question, (width//4 + 10, height//4 + 20))
+    def answer(self, surface):
+        height_btn = 50
+        width_btn = 150
+        a = Button(280, 220, height_btn, width_btn, orange)
+        a.draw(surface)
+        a_text = font.render(self.Option_A, 1, black)
+        surface.blit(a_text, (280, 230))
+        a.mouse_event(surface, red)
+
+        b = Button(280, 300, height_btn, width_btn, orange)
+        b.draw(surface)
+        b_text = font.render(self.Option_B, 1, black)
+        surface.blit(b_text, (280, 310))
+        b.mouse_event(surface, red)
+
+        c = Button(470, 220, height_btn, width_btn, orange)
+        c.draw(surface)
+        c_text = font.render(self.Option_C, 1, black)
+        surface.blit(c_text, (470, 230))
+        c.mouse_event(surface, red)
+
+        d = Button(470, 300, height_btn, width_btn, orange)
+        d.draw(surface)
+        d_text = font.render(self.Option_D, 1, black)
+        surface.blit(d_text, (470, 310))
+        d.mouse_event(surface, red)
+
+        if a.Pressed:
+            return self.Option_A
+            a.Pressed == False
+        if b.Pressed:
+            return self.Option_B
+            b.Pressed == False
+        if c.Pressed:
+            return self.Option_C
+            c.Pressed == False
+        if d.Pressed:
+            return self.Option_D
+            d.Pressed == False
+
 def ask_name(screen, question): 
   "ask(screen, question: string) -> answer"
   name = []
@@ -143,7 +200,6 @@ def ask_name(screen, question):
     text_box.draw(screen) #This function creates an text_box and asks for the users input
   return name
     
-
 def print_list(list):
     """This function does not print the node/empty data structure list but a list in the shape of an array"""
     tmp_list = ""
@@ -165,6 +221,10 @@ def player_list(amount_players):
     else:
          return empty
 
+def next_player(list, start_index):
+    if start_index < 4:
+        return list.select(start_index) ,next_player(list, start_index + 1)
+    
 def game(color, width, height):
     """Defines the entire game, put the display functions inside the while loop """
     def start():
@@ -217,13 +277,15 @@ def game(color, width, height):
     rules_button = Button((5*width)//16, height//2, 50, 100, blue)
     back_button = Button(width -150, 50, 50,100, red)
     rules_button2 = Button(width - 150, 500, 50, 100, blue)
-    players = Node("" , empty)
+    players = Node("" , empty) 
+
+    question = McQuestion("Is this a question?", "Yes", "No", "Maybe", "Can't tell", "Yes")
     
     pygame.display.set_caption("Euromast: The Game") #Defines the title of the game
     
     #the game loop
     while not process_events():
-        
+          key = pygame.key.get_pressed()
           display.fill(color)
           if check_button() == False:#The menu will only apear when nothing is pressed
                 display_menu() #When you press a button the menu will disappear
@@ -233,11 +295,14 @@ def game(color, width, height):
           
           if start_button.Pressed:
               back() 
-              players.print_pygame(width - 400, 50, 1)
-              tmp_players = players
-              turn = font.render(tmp_players.Value + " its your turn", 1, orange)
+              players.print_pygame(width - 400, 50, 1)             
+              turn = font.render(players.select(0) + " its your turn", 1, orange)
               display.blit(turn, (400, 30))
               
+              question.draw(display)
+              choice = question.answer(display)
+              if question.Correct == choice:
+                  display.blit(font.render(choice + " is correct!!!", 1, black), (400, 500))
 
 
           if back_button.Pressed: #The back button resets all buttons and clears the player lsit
@@ -263,7 +328,6 @@ def game(color, width, height):
           
          
           pygame.display.update()
-
 
 game(white, width, height)
 
