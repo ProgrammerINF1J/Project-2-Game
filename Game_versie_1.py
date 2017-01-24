@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import sys, pygame
 import time
 pygame.init()
@@ -270,3 +271,6 @@ game(white, width, height)
 #Closes the pygame window
 pygame.quit()
 quit()
+=======
+awsedrftgyhujik
+>>>>>>> Stashed changes
