@@ -1,34 +1,5 @@
-import sys, pygame
-import time
-pygame.init()
-
-#Globals
-width = 1024
-height = 600
-size = width, height #defines the height and width of the game window
-display = pygame.display.set_mode(size) #defines the screen
-
-#color library
-white = 255, 255, 255
-black = 0, 0, 0
-green = 0, 255, 0
-light_green = 107, 255, 129
-red = 255, 0, 0
-light_red = 255, 112, 131
-blue = 0, 0, 255
-light_blue = 60, 130, 240
-orange = 230, 100, 20
-light_orange = 230, 120, 60
-
-font = pygame.font.Font(None, 30)#Grote text, wordt gebruikt voor de buttons
-font2 = pygame.font.Font(None, 20)#Kleine text, wordt gebruikt voor het input scherm
-
-logo = pygame.image.load("skyline.png")
-rulesImg = pygame.image.load('Knipsel1.png')
-rulesImg1 = pygame.image.load('Knipsel2.png')
-
-clock = pygame.time.Clock()
-closed = False
+from globals import *
+import sys, random
 
 def process_events():
     """Checks if there are any active events it returns True or False"""
@@ -36,7 +7,7 @@ def process_events():
         if event.type == pygame.QUIT:
             closed = True
             # Give the signal to quit
-            return True      
+            return True     
     return False
 
 def get_key():
@@ -64,6 +35,10 @@ class Node():
         text = font.render("Player " + str(n) + ": " + self.Value,1, black)
         display.blit(text, (x, y))
         return self.Tail.print_pygame(x, y + 30, n+1)
+    def select(self, index): 
+        for i in range(index): 
+            self = self.Tail 
+        return self.Value 
  
 class Empty():
     def __init__(self):
@@ -121,26 +96,26 @@ class Button():
             pygame.draw.rect(surface, color, (self.X, self.Y, self.Width, self.Height))
             if click[0] == 1:
                 self.Pressed = True
-   
   
 def ask_name(screen, question): 
-  "ask(screen, question: string) -> answer"
-  name = []
-  text_box = TextBox(question + str(print_list(name)), width//4, height//4, 600, 100, (red))
-  text_box.draw(screen)
-  while 1:
-    key = get_key()
-    if key == pygame.K_BACKSPACE:
-      name = name[0:-1] 
-    elif key == pygame.K_RETURN:
-        break
-    elif key <= 127:
-        if key == pygame.K_RSHIFT:
-            key = ord(key) - 32
-        name.append(chr(key))
+    "ask(screen, question: string) -> answer"
+    name = []
     text_box = TextBox(question + str(print_list(name)), width//4, height//4, 600, 100, (red))
-    text_box.draw(screen) #This function creates an text_box and asks for the users input
+    text_box.draw(screen)
+    while 1:
+        key = get_key()
+        if key == pygame.K_BACKSPACE:
+            name = name[0:-1] 
+        elif key == pygame.K_RETURN:
+            break
+        elif key <= 127:
+            if key == pygame.K_RSHIFT:
+                key = ord(key) - 32
+            name.append(chr(key))
+        text_box = TextBox(question + str(print_list(name)), width//4, height//4, 600, 100, (red))
+        text_box.draw(screen) #This function creates an text_box and asks for the users input
     return name
+    
 
 def print_list(list):
     """This function does not print the node/empty data structure list but a list in the shape of an array"""
@@ -162,6 +137,11 @@ def player_list(amount_players):
          return Node(player, player_list(amount_players + 1))
     else:
          return empty
+    def next_player(list):
+        if not list.IsEmpty: 
+            return list.Tail 
+        else:  
+            return 0 
 
 def game(color, width, height):
     """Defines the entire game, put the display functions inside the while loop """
@@ -221,43 +201,45 @@ def game(color, width, height):
     
     #the game loop
     while not process_events():
+        key = pygame.key.get_pressed()
         
-          display.fill(color)
-          if check_button() == False:#The menu will only apear when nothing is pressed
-                display_menu() #When you press a button the menu will disappear
+        display.fill(color)
+        if check_button() == False:#The menu will only apear when nothing is pressed
+            display_menu() #When you press a button the menu will disappear
          
-          if start_button.Pressed and players.length() < 4:
-             players = player_list(1)
+        if start_button.Pressed and players.length() < 4:
+            players = player_list(1)
           
-          if start_button.Pressed:
-              back() 
-              players.print_pygame(width - 400, 50, 1)
-              tmp_players = players
-              turn = font.render(tmp_players.Value + " its your turn", 1, orange)
-              display.blit(turn, (400, 30))
+        if start_button.Pressed:
+            back() 
+            players.print_pygame(width - 400, 50, 1)
+            x = random.randint(0,3)
+            turn = font.render(players.select(x) + " its your turn", 1, orange)
+            display.blit(turn, (400, 30))
+            pygame.time.wait(100)
               
-          if back_button.Pressed: #The back button resets all buttons and clears the player lsit
-              unpress_all()
-              players = Node("", empty)
-              pygame.time.wait(100)
-              back_button.Pressed = False
+        if back_button.Pressed: #The back button resets all buttons and clears the player lsit
+            unpress_all()
+            players = Node("", empty)
+            pygame.time.wait(100)
+            back_button.Pressed = False
 
-          if rules_button.Pressed:
-              if rules_button.Pressed: #Shows the rules of the game including a next button
-                   display.fill(color)
-                   rules(width - 200,0)
-                   rules_button2.draw(display)
-                   rules_button2.mouse_event(display, light_blue)
-                   rules_button2.draw_text("Next", display)
-                   if rules_button2.Pressed: #If the next button pressed show more rules and back button
-                         display.fill(color)
-                         rules1(width-200,0)
-                         back()
+        if rules_button.Pressed:
+            if rules_button.Pressed: #Shows the rules of the game including a next button
+                display.fill(color)
+                rules(width - 200,0)
+                rules_button2.draw(display)
+                rules_button2.mouse_event(display, light_blue)
+                rules_button2.draw_text("Next", display)
+                if rules_button2.Pressed: #If the next button pressed show more rules and back button
+                        display.fill(color)
+                        rules1(width-200,0)
+                        back()
 
-          if exit_button.Pressed:
-                sys.exit()
-        
-          pygame.display.update()
+        if exit_button.Pressed:
+            sys.exit()
+              
+        pygame.display.update()
 
 game(white, width, height)
 

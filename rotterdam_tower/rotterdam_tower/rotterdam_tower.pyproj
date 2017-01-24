@@ -22,7 +22,17 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="globals.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Menu_werkend.py" />
+    <Compile Include="Players.py" />
     <Compile Include="rotterdam_tower.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Knipsel1.png" />
+    <Content Include="Knipsel2.png" />
+    <Content Include="skyline.png" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
