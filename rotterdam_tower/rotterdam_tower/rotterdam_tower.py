@@ -17,7 +17,14 @@ def get_key():
         if event.type == pygame.KEYDOWN:
             return event.key
         else:
-             pass
+            pass
+
+class Player():
+    def __init__(self, name, score, x, y):
+        self.Name = name
+        self.Score = score
+        self.X = x
+        self.Y = y
 
 class Node():
     def __init__(self, value, tail):
@@ -32,14 +39,25 @@ class Node():
         return self.fold(lambda x, y: y +1,0)
     def print_pygame(self, x, y, n): 
         """displays the list on the pygame window"""
-        text = font.render("Player " + str(n) + ": " + self.Value,1, black)
+        if (str(n) == "1"):
+            player1 = Player(self.Value, 0, x, y)
+            text = font.render("Player " + str(n) + ": " + player1.Name + " Score: " + str(player1.Score),1, black)
+        elif (str(n) == "2"):
+            player2 = Player(self.Value, 0, x, y)
+            text = font.render("Player " + str(n) + ": " + player2.Name + " Score: " + str(player2.Score),1, black)
+        elif (str(n) == "3"):
+            player3 = Player(self.Value, 0, x, y)
+            text = font.render("Player " + str(n) + ": " + player3.Name + " Score: " + str(player3.Score),1, black)
+        elif (str(n) == "4"):
+            player4 = Player(self.Value, 0, x, y)
+            text = font.render("Player " + str(n) + ": " + player4.Name + " Score: " + str(player4.Score),1, black)
         display.blit(text, (x, y))
         return self.Tail.print_pygame(x, y + 30, n+1)
     def select(self, index): 
         for i in range(index): 
             self = self.Tail 
         return self.Value 
- 
+
 class Empty():
     def __init__(self):
         self.IsEmpty = True
@@ -75,7 +93,7 @@ class Button():
     def __init__(self, x , y, height, width, color):
         self.X = x
         self.Y = y
-        self. Height = height
+        self.Height = height
         self.Width = width
         self.Color = color
         self.Pressed = None
@@ -133,15 +151,17 @@ def rules1(x,y):
 def player_list(amount_players):
     """Returns a list of all players, including names starts with 1 and ends with 4"""
     if amount_players < 5: 
-         player = print_list(ask_name(display, "Player " + str(amount_players) + " enter your name: "))
-         return Node(player, player_list(amount_players + 1))
+        player = print_list(ask_name(display, "Player " + str(amount_players) + " enter your name: "))
+        return Node(player, player_list(amount_players + 1))
     else:
-         return empty
+        return empty
+
     def next_player(list):
         if not list.IsEmpty: 
             return list.Tail 
         else:  
-            return 0 
+            return 0
+
 
 def game(color, width, height):
     """Defines the entire game, put the display functions inside the while loop """
