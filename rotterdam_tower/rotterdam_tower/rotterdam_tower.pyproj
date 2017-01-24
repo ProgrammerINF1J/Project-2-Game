@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>e2cd033e-4ae7-4ad5-8a91-9e64ad27584c</ProjectGuid>
+    <ProjectGuid>a4410953-498c-430c-890c-e62c0117167f</ProjectGuid>
     <ProjectHome>.</ProjectHome>
     <StartupFile>rotterdam_tower.py</StartupFile>
     <SearchPath>

@@ -1,7 +1,5 @@
-import sys, pygame
-import time
+import sys, pygame, time
 pygame.init()
-
 
 #Globals
 width = 800
@@ -37,10 +35,8 @@ def process_events():
         if event.type == pygame.QUIT:
             closed = True
             # Give the signal to quit
-            return True
-        
+            return True       
     return False
-
 
 class Button():
     """"Defines a button each button is build up with a position x and y, a height, a width and a color"""
@@ -69,13 +65,11 @@ class Button():
             if click[0] == 1:
                 self.Pressed = True
             
-
 def rules(x,y):
     display.blit(rulesImg, (x *0,5,y*0,5))
 
 def rules1(x,y):
     display.blit(rulesImg1, (x*0,5,y*0,5))
-
 
 def game(color, width, height):
     """Defines the entire game, put the display functions inside the while loop """
@@ -119,7 +113,6 @@ def game(color, width, height):
     back_button = Button(630, 50, 50,100, red)
     rules_button2 = Button(630, 500, 50, 100, blue)
     
-
     pygame.display.set_caption("Euromast: The Game") #Defines the title of the game
     
     #the game loop
@@ -135,7 +128,6 @@ def game(color, width, height):
             back()
             display.blit(text_start,(200, 150)) 
             
-           
         if back_button.Pressed: #If the back button is pressed it resets all button.Pressed values to False, wich makes the unpressed
             unpress_all()
             pygame.time.wait(100)
@@ -157,7 +149,6 @@ def game(color, width, height):
             sys.exit()
         
         pygame.display.update()
-
 
 game(white, width, height)
 

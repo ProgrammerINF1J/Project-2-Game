@@ -1,6 +1,5 @@
 import pygame
 
-
 pygame.init()
 #Globals
 width = 800
@@ -31,8 +30,7 @@ def process_events():
         if event.type == pygame.QUIT:
             closed = True
             # Give the signal to quit
-            return True
-        
+            return True       
     return False
 
 def get_key():
@@ -59,44 +57,6 @@ class Empty():
         return ""
 
 empty = Empty()
-"""
-class Text_Box():
-    def __init__(self, message ,x, y,height, width, color):
-        self.Message = message
-        self.X = x
-        self.Y = y
-        self.Height = height
-        self.Width = width
-        self.Color = color
-    def draw(self, surface):
-        pygame.draw.rect(surface, self.Color, (self.X , self.Y, self.Width, self.Height))
-        pygame.draw.rect(surface, white, (self.X + self.Width//14, self.Y + self.Height//3, self.Width - 40, self.Height //2))
-        if len(self.Message) > 0:
-            text = font.render(self.Message, 1, black)
-            surface.blit(text, (self.X + self.Width // 14, self.Y + self.Height //2))
-    def ask(self):
-        name = []
-        while 1:
-             key = get_key()
-             if key == pygame.K_BACKSPACE:
-                  name = name[0:-1]
-             elif key == pygame.K_RETURN:
-                  break
-             elif key == pygame.K_MINUS:
-                  name.append("_") 
-             elif key <= 127:
-                  name.append(chr(key))
-
-
-def get_key():
-    while 1:
-       event = pygame.event.poll()
-       if event.type == pygame.KEYDOWN: 
-          return event.key
-       else:
-           pass
-
-"""#Oude code text_field
 
 class TextBox():
     def __init__(self, message, x, y , width, height, color):
@@ -142,10 +102,7 @@ def print_list(list):
     return tmp_list
 
 
-def game(color, width, height):
-
-   
-    
+def game(color, width, height):  
     while not process_events():
         display.fill(color)
         n = 1
@@ -153,12 +110,6 @@ def game(color, width, height):
             name = ask(display, "what is your name player " + str(n) + "?:  ")
             print(print_list(name))
             n += 1
-
         pygame.display.update()
 
-
 game(green, width ,height)
-
-
-
-

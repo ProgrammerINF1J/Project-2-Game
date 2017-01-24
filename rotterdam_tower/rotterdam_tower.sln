@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "rotterdam_tower", "rotterdam_tower\rotterdam_tower.pyproj", "{E2CD033E-4AE7-4AD5-8A91-9E64AD27584C}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "rotterdam_tower", "rotterdam_tower\rotterdam_tower.pyproj", "{A4410953-498C-430C-890C-E62C0117167F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,8 +11,8 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E2CD033E-4AE7-4AD5-8A91-9E64AD27584C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E2CD033E-4AE7-4AD5-8A91-9E64AD27584C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4410953-498C-430C-890C-E62C0117167F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4410953-498C-430C-890C-E62C0117167F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
