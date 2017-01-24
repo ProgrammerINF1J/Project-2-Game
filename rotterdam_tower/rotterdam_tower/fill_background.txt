@@ -1,0 +1,12 @@
+import sys, pygame
+pygame.init()
+
+width  = 1024
+height = 768
+size   = width, height
+color  = 79, 116, 175
+
+screen = pygame.display.set_mode(size)
+
+screen.fill(color)
+pygame.display.flip()
