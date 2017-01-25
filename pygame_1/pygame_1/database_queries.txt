@@ -1,8 +1,12 @@
-create table player (
-	score int,
+drop table if exists player;
+create table if not exists player (
+    id SERIAL primary key,
     name varchar(10),
-    id int not null primary key
-)
+	score int,
+	highscore int
+);
+insert into player (name, score, highscore) values ('player1', 0, 0), ('player2', 0, 0), ('player3', 0, 0), ('player4', 0, 0);
+select * from player;
 
-#UPDATE player SET score=0 WHERE name='player1';
-select * from player
+# UPDATE player SET score=0 WHERE name='player1';
+# ALTER TABLE player ADD highscore INT;
