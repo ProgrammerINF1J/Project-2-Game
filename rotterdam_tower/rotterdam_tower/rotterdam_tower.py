@@ -1,3 +1,4 @@
+from database import *
 from globals import *
 import sys, random
 
