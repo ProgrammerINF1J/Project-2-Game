@@ -1,6 +1,6 @@
 from database import *
 from globals import *
-import sys, random
+import random
 
 def process_events():
     """Checks if there are any active events it returns True or False"""
@@ -52,6 +52,7 @@ class Node():
         elif (str(n) == "4"):
             player4 = Player(self.Value, 0, x, y)
             text = font.render("Player " + str(n) + ": " + player4.Name + " Score: " + str(player4.Score),1, black)
+        print(self.Value, check_name(self.Value))
         display.blit(text, (x, y))
         return self.Tail.print_pygame(x, y + 30, n+1)
     def select(self, index): 
@@ -225,7 +226,7 @@ def game(color, width, height):
         key = pygame.key.get_pressed()
         
         display.fill(color)
-        if check_button() == False:#The menu will only apear when nothing is pressed
+        if check_button() == False: #The menu will only apear when nothing is pressed
             display_menu() #When you press a button the menu will disappear
          
         if start_button.Pressed and players.length() < 4:
