@@ -41,7 +41,7 @@ dice4Img = pygame.image.load('Dobbel4.png')
 dice5Img = pygame.image.load('Dobbel5.png')
 dice6Img = pygame.image.load('Dobbel6.png')
 background = pygame.image.load('background.png')
-
+coffeeImg = pygame.image.load("coffee.png")
 
 clock = pygame.time.Clock()
 closed = False
@@ -169,9 +169,10 @@ question19 = Node("What are geograthical coordinates of Rotterdam?", Node("32 N 
 question20 = Node("What are the colors of the Rotterdam flag?", Node("Yellow and Black", Node("Red, Yellow, Blue", Node("Green and White", Node("Red, White, Blue", Node("Green and White", empty))))))
 question21 = Node("What is 454 times 15?", Node("4.930", Node("6.810", Node("5.320", Node("2.234", Node("6.810", empty))))))
 question22 = Node("What is the oldest football club of Rotterdam?", Node("Excelcior", Node("Feynoord", Node("Ajax", Node("Sparta", Node("Feynoord", empty))))))
+question23 = Node("How much degrees is 2pi radians?", Node("180 degrees", Node("360 degrees Celcius", Node("360 degrees", Node("90 degrees", Node("360 degrees", empty))))))
 # Node("", Node("", Node("", Node("", Node("", Node("", empty)))))) standard question = [Q, A, B, C, D, answer, empty]
 
-q_list = Node(question1, Node(question2, Node(question3, Node(question4, Node(question5, Node(question6, Node(question7, Node(question8, Node(question9, Node(question10, Node(question11, Node(question12, Node(question13, Node(question14, Node(question15, Node(question16, Node(question17, Node(question18, Node(question19, Node(question20, Node(question21, Node(question22, empty))))))))))))))))))))))
+q_list = Node(question1, Node(question2, Node(question3, Node(question4, Node(question5, Node(question6, Node(question7, Node(question8, Node(question9, Node(question10, Node(question11, Node(question12, Node(question13, Node(question14, Node(question15, Node(question16, Node(question17, Node(question18, Node(question19, Node(question20, Node(question21, Node(question22, Node(question23, empty)))))))))))))))))))))))
 
 #Dice
 dice = Node(dice1Img, Node(dice2Img, Node(dice3Img, Node(dice4Img, Node(dice5Img, Node(dice6Img, empty))))))
@@ -299,6 +300,13 @@ def player_list(amount_players):
          return Node(player, player_list(amount_players + 1))
     else:
          return empty        
+
+def coffeebreak(x, y):
+        display.blit(coffeeImg, (x, y))
+        effect = pygame.mixer.Sound('coffee.wav')
+        effect.play()
+        pygame.time.wait(1300)
+        effect.stop()
    
 def game(color, width, height):
     """Defines the entire game, put the display functions inside the while loop """
@@ -382,25 +390,27 @@ def game(color, width, height):
               display.blit(background,(0,0))
               back() 
               display.blit(dice.select(stepps), (870, 130))
-              players.print_pygame(width - 320, 50, 1)      
+              players.print_pygame(width - 200, height - 200, 1)      
+
               display.blit(font.render(str(player1.Name) +" "+ str(player1.Score), 1, black), (player1.X -len(player1.Name), player1.Y + 20))
               display.blit(font.render(str(player2.Name) +" "+ str(player2.Score), 1, black), (player2.X -len(player2.Name), player2.Y + 20))
               display.blit(font.render(str(player3.Name) +" "+ str(player3.Score), 1, black), (player3.X -len(player3.Name), player3.Y + 20))
               display.blit(font.render(str(player4.Name) +" "+ str(player4.Score), 1, black), (player4.X- len(player4.Name), player4.Y + 20))
+              
               player1.draw(display, turquise)
               player2.draw(display, green)       
               player3.draw(display, red)
               player4.draw(display, yellow)
               
-
               turn = font3.render(players.select(player_turn) + " its your turn", 1, blue)
-              display.blit(turn, (200, 450))
+              display.blit(turn, (100, 450))
               display.blit(font2.render("-Press space to role the dice-", 1, black), (800, 270))
              
 
           if back_button.Pressed: #The back button resets all buttons and clears the player list
               unpress_all()
               players = Node(empty, empty)
+              player_turn = 0
               select_question = False
               pygame.time.wait(100)
               back_button.Pressed = False
@@ -419,6 +429,7 @@ def game(color, width, height):
                          back()
 
           if exit_button.Pressed:
+              #coffeebreak(0,0)
               sys.exit()
 
           if start_button.Pressed and key[pygame.K_SPACE] and select_question == False:           
@@ -437,6 +448,7 @@ def game(color, width, height):
              choice = question.answer(display)
              answered = False
              points = round((time_left//1000) + (10 *stepps))
+             time_left -= 10
              if question.Correct == choice:
                  #display.blit(font.render("'" + choice + "'" + " is correct!!!", 1, black), (400, 10))
                  if player_turn == 0:
@@ -480,7 +492,8 @@ def game(color, width, height):
                  print("Question wrong")
                  #pygame.time.wait(500)
                  select_question = False
-             time_left -= 50
+                 time_left -= 10
+             
           
 
           pygame.display.update()
