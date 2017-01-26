@@ -21,8 +21,7 @@ except:
 def check_name(name):
     try:
         ccp.execute("""SELECT count(p_id) FROM player WHERE p_name=%s""", (name))
-        count = conn.cursor.fetchone()
-        return count
+        return (list(ccp))
     except Exception as error:
         return(error)
 

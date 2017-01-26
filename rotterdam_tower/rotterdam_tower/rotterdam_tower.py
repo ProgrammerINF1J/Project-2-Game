@@ -248,27 +248,31 @@ def game(color, width, height):
             print ("p1:", p1.Name, "score:", p1.Score, "\n"
                    "p2:",  p2.Name, "score:", p2.Score, "\n"
                    "p3:", p3.Name, "score:", p3.Score, "\n"
-                   "p4:", p4.Name, "score:", p4.Score, "\n")    
-            print(check_name(p1.Name))
-            if (check_name(p1.Name) > 0):
-                print("exists")
-            elif (check_name(p2.Name) == 0):
-                print("doesn't exists")    
-            check_name(p2.Name)
-            if (check_name(p2.Name) > 0):
-                print("exists")
-            elif (check_name(p2.Name) == 0):
-                print("doesn't exists")    
-            check_name(p3.Name)
-            if (check_name(p3.Name) > 0):
-                print("exists")
-            elif (check_name(p3.Name) == 0):
+                   "p4:", p4.Name, "score:", p4.Score, "\n")
+            # player 1
+            if (check_name(p1.Name) == [[0]]):
                 print("doesn't exists")
-            check_name(p4.Name)
-            if (check_name(p4.Name) > 0):
-                print("exists")
-            elif (check_name(p4.Name) == 0):
+                insert_player(p1.Name, p1.Score)
+            elif (check_name(p1.Name) > [[0]]):
+                print("does exists")
+            # player 2
+            if (check_name(p2.Name) == [[0]]):
                 print("doesn't exists")
+                insert_player(p2.Name, p2.Score)
+            elif (check_name(p2.Name) > [[0]]):
+                print("does exists")
+            # player 3
+            if (check_name(p3.Name) == [[0]]):
+                print("doesn't exists")
+                insert_player(p3.Name, p3.Score)
+            elif (check_name(p3.Name) > [[0]]):
+                print("does exists")
+            # player 4
+            if (check_name(p4.Name) == [[0]]):
+                print("doesn't exists\n")
+                insert_player(p4.Name, p4.Score)
+            elif (check_name(p4.Name) > [[0]]):
+                print("does exists\n")
             
             pygame.time.wait(100)
             players = Node("", empty)
