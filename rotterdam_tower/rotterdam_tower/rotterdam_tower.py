@@ -248,7 +248,27 @@ def game(color, width, height):
             print ("p1:", p1.Name, "score:", p1.Score, "\n"
                    "p2:",  p2.Name, "score:", p2.Score, "\n"
                    "p3:", p3.Name, "score:", p3.Score, "\n"
-                   "p4:", p4.Name, "score:", p4.Score, "\n")
+                   "p4:", p4.Name, "score:", p4.Score, "\n")    
+            print(check_name(p1.Name))
+            if (check_name(p1.Name) > 0):
+                print("exists")
+            elif (check_name(p2.Name) == 0):
+                print("doesn't exists")    
+            check_name(p2.Name)
+            if (check_name(p2.Name) > 0):
+                print("exists")
+            elif (check_name(p2.Name) == 0):
+                print("doesn't exists")    
+            check_name(p3.Name)
+            if (check_name(p3.Name) > 0):
+                print("exists")
+            elif (check_name(p3.Name) == 0):
+                print("doesn't exists")
+            check_name(p4.Name)
+            if (check_name(p4.Name) > 0):
+                print("exists")
+            elif (check_name(p4.Name) == 0):
+                print("doesn't exists")
             
             pygame.time.wait(100)
             players = Node("", empty)
