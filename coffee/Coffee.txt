@@ -1,0 +1,8 @@
+ 
+ coffeeImg = pygame.image.load("coffee.png")
+ 
+ def coffeebreak():
+        display.blit(coffeeImg, (0, 0))
+        effect = pygame.mixer.Sound('coffee.wav')
+        effect.play()
+        effect.stop()
