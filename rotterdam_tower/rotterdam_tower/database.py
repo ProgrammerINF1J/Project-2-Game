@@ -17,40 +17,6 @@ try:
 except:
     print("I can't select highscore")
 
-# fetch all of the rows from the query
-data_p = ccp.fetchall()
-data_h = cch.fetchall()
-
-# get player rows
-for row in data_p:
-    if row[0] == 1:
-        player1_name = row[1]
-        player1_score = row[2]
-    elif row[0] == 2:
-        player2_name = row[1]
-        player2_score = row[2]
-    elif row[0] == 3:
-        player3_name = row[1]
-        player3_score = row[2]
-    elif row[0] == 4:
-        player4_name = row[1]
-        player4_score = row[2]
-
-# get highscore rows
-for row in data_h:
-    if row[0] == 1:
-        h_player1_name = row[1]
-        h_player1_score = row[2]
-    elif row[0] == 2:
-        h_player2_name = row[1]
-        h_player2_score = row[2]
-    elif row[0] == 3:
-        h_player3_name = row[1]
-        h_player3_score = row[2]
-    elif row[0] == 4:
-        h_player4_name = row[1]
-        h_player4_score = row[2]
-
 # update score
 def update_score(name, score):
     try:
