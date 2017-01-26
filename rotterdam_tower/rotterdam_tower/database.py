@@ -17,6 +17,13 @@ try:
 except:
     print("I can't select highscore")
 
+# check name
+def check_name(name):
+    try:
+        ccp.execute("""SELECT count(p_name) FROM player WHERE p_name=%s""", (name))
+    except Exception as error:
+        return(error)
+
 # update score
 def update_score(name, score):
     try:
@@ -25,17 +32,10 @@ def update_score(name, score):
         print(error)
     conn.commit()
 
-# check name
-def check_name(name):
-    try:
-        ccp.execute("""SELECT count(p_name) FROM player WHERE p_name=%s""", (name))
-    except Exception as error:
-        return(error)
-
 # insert player name
-def insert_name(name):
+def insert_player(name, score):
     try:
-        ccp.execute("""insert into player(p_name) values (%s)""", (name))
+        ccp.execute("""insert into player(p_name, p_score) values (%s, %s)""", (name, score))
     except Exception as error:
         print(error)
     conn.commit()
