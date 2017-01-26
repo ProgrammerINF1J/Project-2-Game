@@ -41,18 +41,21 @@ class Node():
     def print_pygame(self, x, y, n): 
         """displays the list on the pygame window"""
         if (str(n) == "1"):
-            self.player1 = self.Value
-            text = font.render("Player " + str(n) + ": " + player1 + " Score: " + str(player1.Score),1, black)
+            global p1
+            p1 = Player(self.Value, 0, x, y)
+            text = font.render("Player " + str(n) + ": " + p1.Name + " Score: " + str(p1.Score),1, black)
         elif (str(n) == "2"):
-            self.player2 = self.Value
-            text = font.render("Player " + str(n) + ": " + player2 + " Score: " + str(player2.Score),1, black)
+            global p2
+            p2 = Player(self.Value, 0, x, y)
+            text = font.render("Player " + str(n) + ": " + p2.Name + " Score: " + str(p2.Score),1, black)
         elif (str(n) == "3"):
-            self.player3 = self.Value
-            text = font.render("Player " + str(n) + ": " + player3 + " Score: " + str(player3.Score),1, black)
+            global p3
+            p3 = Player(self.Value, 0, x, y)
+            text = font.render("Player " + str(n) + ": " + p3.Name + " Score: " + str(p3.Score),1, black)
         elif (str(n) == "4"):
-            self.player4 = self.Value
-            text = font.render("Player " + str(n) + ": " + player4 + " Score: " + str(player4.Score),1, black)
-        print(self.Value, check_name(self.Value))
+            global p4
+            p4 = Player(self.Value, 0, x, y)
+            text = font.render("Player " + str(n) + ": " + p4.Name + " Score: " + str(p4.Score),1, black)
         display.blit(text, (x, y))
         return self.Tail.print_pygame(x, y + 30, n+1)
     def select(self, index): 
@@ -241,7 +244,13 @@ def game(color, width, height):
             pygame.time.wait(100)
               
         if back_button.Pressed: #The back button resets all buttons and clears the player lsit
-            unpress_all()
+            unpress_all()            
+            print ("p1:", p1.Name, "score:", p1.Score, "\n"
+                   "p2:",  p2.Name, "score:", p2.Score, "\n"
+                   "p3:", p3.Name, "score:", p3.Score, "\n"
+                   "p4:", p4.Name, "score:", p4.Score, "\n")
+            
+            pygame.time.wait(100)
             players = Node("", empty)
             pygame.time.wait(100)
             back_button.Pressed = False
@@ -259,7 +268,6 @@ def game(color, width, height):
                         back()
 
         if exit_button.Pressed:
-            check_name(name)
             sys.exit()
               
         pygame.display.update()
