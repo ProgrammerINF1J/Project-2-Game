@@ -231,26 +231,26 @@ def create_question(index):
     return McQuestion(question.select(0),question.select(1), question.select(2), question.select(3), question.select(4), question.select(5))
 
 def ask_name(screen, question): 
-  "ask(screen, question: string) -> answer"
-  name = []
-  text_box = TextBox(question + str(print_list(name)), width//4, height//4, 600, 100, (red))
-  text_box.draw(screen)
-  while 1:
-    key = get_key()
-    if key == pygame.K_BACKSPACE:
-      name = name[0:-1] 
-    elif key == pygame.K_RETURN:
-        break
-    elif key <= 127:
-        if key == pygame.K_RSHIFT:
-            key = ord(key) - 32
-        name.append(chr(key))
+    "ask(screen, question: string) -> answer"
+    name = []
     text_box = TextBox(question + str(print_list(name)), width//4, height//4, 600, 100, (red))
-    text_box.draw(screen) #This function creates an text_box and asks for the users input
-  if len(name) > 14:
-      return name[0:13]
-  else:
-      return name
+    text_box.draw(screen)
+    while 1:
+        key = get_key()
+        if key == pygame.K_BACKSPACE:
+            name = name[0:-1] 
+        elif key == pygame.K_RETURN:
+            break
+        elif key <= 127:
+            if key == pygame.K_RSHIFT:
+                key = ord(key) - 32
+            name.append(chr(key))
+        text_box = TextBox(question + str(print_list(name)), width//4, height//4, 600, 100, (red))
+        text_box.draw(screen) #This function creates an text_box and asks for the users input
+    if len(name) > 14:
+        return name[0:13]
+    else:
+        return name
     
 def print_list(list):
     """This function does not print the node/empty data structure list but a list in the shape of an array"""
@@ -370,39 +370,45 @@ def game(color, width, height):
               display.blit(font2.render("-Press space to role the dice-", 1, black), (800, 270))            
 
           if back_button.Pressed: #The back button resets all buttons and clears the player list
-              unpress_all()
+              p1.Name = player1.Name; p2.Name = player2.Name; p3.Name = player3.Name; p4.Name = player4.Name; 
+              p1.Score = player1.Score; p2.Score = player2.Score; p3.Score = player3.Score; p4.Score = player4.Score; 
               print ("p1:", p1.Name, "score:", p1.Score, "\n"
                       "p2:",  p2.Name, "score:", p2.Score, "\n"
                       "p3:", p3.Name, "score:", p3.Score, "\n"
                       "p4:", p4.Name, "score:", p4.Score, "\n")
               # player 1
-              if (check_name(p1.Name) == [[0]]):
-                print("doesn't exists")
-                insert_player(p1.Name, p1.Score)
-              elif (check_name(p1.Name) > [[0]]):
+              print(check_name(p1.Name))
+              if (check_name(p1.Name) == 0):
+                  print("doesn't exists")
+                  insert_player(p1.Name, p1.Score)
+              elif (check_name(p1.Name) == 1):
                   print("does exists")
                   update_score(p1.Name, p1.Score)
               # player 2
-              if (check_name(p2.Name) == [[0]]):
+              print(check_name(p2.Name))
+              if (check_name(p2.Name) == 0):
                   print("doesn't exists")
                   insert_player(p2.Name, p2.Score)
-              elif (check_name(p2.Name) > [[0]]):
+              elif (check_name(p2.Name) == 1):
                   print("does exists")
                   update_score(p2.Name, p2.Score)
               # player 3
-              if (check_name(p3.Name) == [[0]]):
+              print(check_name(p3.Name))
+              if (check_name(p3.Name) == 0):
                   print("doesn't exists")
                   insert_player(p3.Name, p3.Score)
-              elif (check_name(p3.Name) > [[0]]):
+              elif (check_name(p3.Name) == 1):
                   print("does exists")
                   update_score(p3.Name, p3.Score)
               # player 4
-              if (check_name(p4.Name) == [[0]]):
+              print(check_name(p4.Name))
+              if (check_name(p4.Name) == 0):
                   print("doesn't exists\n")
                   insert_player(p4.Name, p4.Score)
-              elif (check_name(p4.Name) > [[0]]):
+              elif (check_name(p4.Name) == 1):
                   print("does exists\n")
                   update_score(p4.Name, p4.Score)
+              unpress_all()
               players = Node(empty, empty)
               select_question = False
               pygame.time.wait(100)
@@ -441,52 +447,65 @@ def game(color, width, height):
              points = round((time_left//1000) + (10 *stepps))
              if question.Correct == choice:
                  #display.blit(font.render("'" + choice + "'" + " is correct!!!", 1, black), (400, 10))
+                 print("Question good")
                  if player_turn == 0:
                      player1 = player1.update(points, stepps)
+                     p1.Score = player1.Score
+                     print("p1:",player1.Score)
                  if player_turn == 1:
                      player2 = player2.update(points, stepps)
+                     p2.Score = player2.Score
+                     print("p2:",player2.Score)
                  if player_turn == 2:
                      player3 = player3.update(points, stepps)
+                     p3.Score = player3.Score
+                     print("p3:",player3.Score)
                  if player_turn == 3:
-                     player4 = player4.update(points, stepps) 
+                     player4 = player4.update(points, stepps)
+                     p4.Score = player4.Score
+                     print("p4:",player4.Score)
                  player_turn +=1
-                 print("Question good")
                  #pygame.time.wait(500)
                  select_question = False
              if choice != question.Correct and question.Answered or time_left == 0:
+                 print("Question wrong")
                  if player_turn == 0:
                      player1 = player1.update(-points, -stepps)
                      if player1.Score < 0:
                          player1 = player1.reset_score()
-                         update_score(p1.Name, 0)
+                         p1.Score = 0
                      if player1.Y > y_set:
-                         player1 = player1.reset_pos() 
+                         player1 = player1.reset_pos()
+                     p1.Score = player1.Score
+                     print("p1:",p1.Score)
                  if player_turn == 1:
                      player2 = player2.update(-points, -stepps)
                      if player2.Score < 0:
                          player2 = player2.reset_score()
-                         update_score(p2.Name, 0)
                          p2.Score = 0
                      if player2.Y > y_set:
-                         player2 = player2.reset_pos() 
-                 if player_turn == y_set:
+                         player2 = player2.reset_pos()
+                     p2.Score = player2.Score
+                     print("p2:",p2.Score)
+                 if player_turn == 2:
                      player3 = player3.update(-points, -stepps)
                      if player3.Score < 0:
                          player3 = player3.reset_score()
-                         update_score(p3.Name, 0)
                          p3.Score = 0
                      if player3.Y > y_set:
-                         player3 = player3.reset_pos() 
+                         player3 = player3.reset_pos()
+                     p3.Score = player3.Score
+                     print("p3:",p3.Score)
                  if player_turn == 3:
-                     player4 = player4.update(-points, -stepps) 
+                     player4 = player4.update(-points, -stepps)
                      if player4.Score < 0:
                          player4 = player4.reset_score()
-                         update_score(p4.Name, 0)
                          p4.Score = 0
                      if player4.Y > y_set:
-                         player4 = player4.reset_pos() 
+                         player4 = player4.reset_pos()
+                     p4.Score = player4.Score
+                     print("p4:",p4.Score)
                  player_turn += 1
-                 print("Question wrong")
                  #pygame.time.wait(500)
                  select_question = False
              time_left -= 50

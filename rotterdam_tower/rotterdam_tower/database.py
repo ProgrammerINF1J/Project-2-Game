@@ -21,9 +21,11 @@ except:
 def check_name(name):
     try:
         ccp.execute("""SELECT count(p_id) FROM player WHERE p_name=%s""", (name))
-        return (list(ccp))
     except Exception as error:
         return(error)
+    result = ccp.fetchall()
+    for row in result:
+        return row[0]
 
 # insert player name
 def insert_player(name, score):

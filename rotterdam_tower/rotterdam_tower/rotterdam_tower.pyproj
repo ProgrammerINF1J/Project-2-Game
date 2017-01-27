@@ -32,9 +32,20 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="database.txt" />
-    <Content Include="Knipsel1.png" />
-    <Content Include="Knipsel2.png" />
-    <Content Include="skyline.png" />
+    <Content Include="pictures\background.png" />
+    <Content Include="pictures\coffee.png" />
+    <Content Include="pictures\Dobbel1.png" />
+    <Content Include="pictures\Dobbel2.png" />
+    <Content Include="pictures\Dobbel3.png" />
+    <Content Include="pictures\Dobbel4.png" />
+    <Content Include="pictures\Dobbel5.png" />
+    <Content Include="pictures\Dobbel6.png" />
+    <Content Include="pictures\Knipsel1.png" />
+    <Content Include="pictures\Knipsel2.png" />
+    <Content Include="pictures\skyline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="pictures\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
