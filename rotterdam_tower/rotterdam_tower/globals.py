@@ -8,16 +8,16 @@ size = width, height #defines the height and width of the game window
 display = pygame.display.set_mode(size) #defines the screen
 
 #image library, place all images here
-logo = pygame.image.load("skyline.png")
-rulesImg = pygame.image.load('Knipsel1.png')
-rulesImg1 = pygame.image.load('Knipsel2.png')
-dice1Img = pygame.image.load('Dobbel1.png')
-dice2Img = pygame.image.load('Dobbel2.png')
-dice3Img = pygame.image.load('Dobbel3.png')
-dice4Img = pygame.image.load('Dobbel4.png')
-dice5Img = pygame.image.load('Dobbel5.png')
-dice6Img = pygame.image.load('Dobbel6.png')
-background = pygame.image.load('background.png')
+logo = pygame.image.load("pictures/skyline.png")
+rulesImg = pygame.image.load('pictures/Knipsel1.png')
+rulesImg1 = pygame.image.load('pictures/Knipsel2.png')
+dice1Img = pygame.image.load('pictures/Dobbel1.png')
+dice2Img = pygame.image.load('pictures/Dobbel2.png')
+dice3Img = pygame.image.load('pictures/Dobbel3.png')
+dice4Img = pygame.image.load('pictures/Dobbel4.png')
+dice5Img = pygame.image.load('pictures/Dobbel5.png')
+dice6Img = pygame.image.load('pictures/Dobbel6.png')
+background = pygame.image.load('pictures/background.png')
 
 #color library
 white = 255, 255, 255

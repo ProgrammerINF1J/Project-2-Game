@@ -28,11 +28,10 @@
     <Compile Include="globals.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Menu_werkend.py" />
-    <Compile Include="Players.py" />
     <Compile Include="rotterdam_tower.py" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="database.txt" />
     <Content Include="Knipsel1.png" />
     <Content Include="Knipsel2.png" />
     <Content Include="skyline.png" />
