@@ -25,14 +25,6 @@ def check_name(name):
     except Exception as error:
         return(error)
 
-# update score
-def update_score(name, score):
-    try:
-        ccp.execute("""UPDATE player SET p_score=%s WHERE p_name=%s""", (score, name))
-    except Exception as error:
-        print(error)
-    conn.commit()
-
 # insert player name
 def insert_player(name, score):
     try:
@@ -41,10 +33,10 @@ def insert_player(name, score):
         print(error)
     conn.commit()
 
-# update player name
-def update_player(name, score):
+# update score
+def update_score(name, score):
     try:
-        ccp.execute("""UPDATE player SET p_score='%s' WHERE p_name = %s""", (score, name))
+        ccp.execute("""UPDATE player SET p_score=%s WHERE p_name=%s""", (score, name))
     except Exception as error:
         print(error)
     conn.commit()
