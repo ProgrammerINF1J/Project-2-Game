@@ -1,7 +1,6 @@
 #--Copyright al rights reserved, this game is created by Steven Koert, Sem Jansen en Vincent de Heer
 
-
-import sys, pygame, time, random
+import sys, pygame, random, time
 pygame.init()
 
 #Globals
@@ -23,11 +22,15 @@ orange = 230, 100, 20
 light_orange = 230, 120, 60
 turquise = 75, 220, 230
 yellow = 225, 200, 10
-
+kind_of_brown = 210, 200,110
+x_set = 150
+y_set = 30 #400 is the standard value for the start position 
 
 font = pygame.font.Font(None, 30)#Grote text, wordt gebruikt voor de buttons
 font2 = pygame.font.Font(None, 20)#Kleine text, wordt gebruikt voor het input scherm
+font3 = pygame.font.Font(None, 70)
 
+#image library, place all images here
 logo = pygame.image.load("skyline.png")
 rulesImg = pygame.image.load('Knipsel1.png')
 rulesImg1 = pygame.image.load('Knipsel2.png')
@@ -37,6 +40,8 @@ dice3Img = pygame.image.load('Dobbel3.png')
 dice4Img = pygame.image.load('Dobbel4.png')
 dice5Img = pygame.image.load('Dobbel5.png')
 dice6Img = pygame.image.load('Dobbel6.png')
+background = pygame.image.load('background.png')
+coffeeImg = pygame.image.load("coffee.png")
 
 
 clock = pygame.time.Clock()
@@ -63,6 +68,7 @@ def get_key():
 
 class Node():
     def __init__(self, value, tail):
+        """value: unkown type, tail: reference next value or empty"""
         self.Value = value
         self.Tail = tail
         self.IsEmpty = False
@@ -74,14 +80,15 @@ class Node():
         return self.fold(lambda x, y: y +1,0)
     def print_pygame(self, x, y, n): 
         """displays the list on the pygame window"""
-        text = font.render("Player " + str(n) + ": " + self.Value,1, black)
+        text = font.render(str(n) + ": " + self.Value,1, black)
         display.blit(text, (x, y))
         return self.Tail.print_pygame(x, y + 30, n+1)
     def select(self, index): 
+        """selects an item from a list with the matching index start with 0"""
         for i in range(index):
             self = self.Tail
         return self.Value
- 
+    
 class Empty():
     def __init__(self):
         self.IsEmpty = True
@@ -107,6 +114,7 @@ class TextBox():
     def draw(self, surface):
         pygame.draw.rect(surface, self.Color, (self.X, self.Y , self.Width, self.Height))
         pygame.draw.rect(surface, white, ((self.X + self.Width//80, self.Y + self.Height//4,self.Width -20, self.Height// 4)))
+        surface.blit(font2.render("Max. 14 characters----------------------------press return to submit",1,black),(self.X + self.Width//6, self.Y + self.Height//2 +30))
         if len(self.Message) != 0:
             text = font2.render(self.Message, 1, black) 
             surface.blit(text,((self.X+self.Width//80) , (self.Y+self.Height//4)))
@@ -150,8 +158,22 @@ question7 = Node("Who did NOT develop this game?" ,Node("Steven Koerts", Node("D
 question8 = Node("Which river belongs to Rotterdam?" ,Node("The Rijn", Node("The Maas" , Node("The Thames", Node("The Seine", Node("The Maas", empty))))))
 question9 = Node("Where is the museum of Rotterdam?", Node("In Amsterdam", Node("In Schiedam", Node("In Rotterdam", Node("In Groningen", Node("In Rotterdam", empty))))))
 question10 = Node("Where is the Rotterdamsedijk?", Node("Rotterdam", Node("Schiedam", Node("Maastricht", Node("Rotterdam and Schiedam" , Node("Rotterdam and Schiedam", empty))))))
+question11 = Node("Wich is the tallest buiding in the list?", Node("Euromast", Node("WTC Building", Node("The Markthal", Node("Wijhaven 117", Node("Euromast", empty))))))
+question12 = Node("When was Rotterdam bombed?", Node("1941", Node("1940", Node("1943", Node("1942", Node("1940", empty))))))
+question13 = Node("When was the dam over the Rotte build?", Node("1170", Node("1270", Node("1370", Node("1470", Node("1270", empty))))))
+question14 = Node("Where was Desiderius Erasmus born?", Node("Rotterdam", Node("Trier", Node("Maassluis", Node("Berlin", Node("Rotterdam", empty))))))
+question15 = Node("When was Desiderius Erasmus born?", Node("12 july 1536", Node("24 augustus 1455", Node("13 april 1562", Node("4 septembre 1423", Node("12 july 1536", empty))))))
+question16 = Node("Is Rotterdam the gateway to Europe?", Node("Yes", Node("No", Node("Probebly", Node("That's a lie!!", Node("Probebly", empty))))))
+question17 = Node("How many seats has the Kuip?", Node("132.320", Node("51.480", Node("42.120", Node("45.560", Node("51.480", empty))))))
+question18 = Node("What is the answer to THIS question?", Node("This One", Node("this ONE", Node("THIS one", Node("This one", Node("THIS one", empty))))))
+question19 = Node("What are geograthical coordinates of Rotterdam?", Node("32 N , 17 E", Node("74 N , 42 E", Node("52 N , 4 E", Node("78 N , 38 E", Node("52 N , 4 E", empty))))))
+question20 = Node("What are the colors of the Rotterdam flag?", Node("Yellow and Black", Node("Red, Yellow, Blue", Node("Green and White", Node("Red, White, Blue", Node("Green and White", empty))))))
+question21 = Node("What is 454 times 15?", Node("4.930", Node("6.810", Node("5.320", Node("2.234", Node("6.810", empty))))))
+question22 = Node("What is the oldest football club of Rotterdam?", Node("Excelcior", Node("Feynoord", Node("Ajax", Node("Sparta", Node("Sparta", empty))))))
+question23 = Node("How much degrees is 2pi radians?", Node("180 degrees", Node("360 degrees Celcius", Node("360 degrees", Node("90 degrees", Node("360 degrees", empty))))))
+# Node("", Node("", Node("", Node("", Node("", Node("", empty)))))) standard question = [Q, A, B, C, D, answer, empty]
 
-q_list = Node(question1, Node(question2, Node(question3, Node(question4, Node(question5, Node(question6, Node(question7, Node(question8, Node(question9, Node(question10, empty))))))))))
+q_list = Node(question1, Node(question2, Node(question3, Node(question4, Node(question5, Node(question6, Node(question7, Node(question8, Node(question9, Node(question10, Node(question11, Node(question12, Node(question13, Node(question14, Node(question15, Node(question16, Node(question17, Node(question18, Node(question19, Node(question20, Node(question21, Node(question22, Node(question23, empty)))))))))))))))))))))))
 
 #Dice
 dice = Node(dice1Img, Node(dice2Img, Node(dice3Img, Node(dice4Img, Node(dice5Img, Node(dice6Img, empty))))))
@@ -163,6 +185,7 @@ def roll_dice(x, y):
 
 class McQuestion():
     def __init__(self, question, option_a, option_b, option_c, option_d, correct):
+        """defines a multiple choice question, question, options(a,b,c,d), correct answere"""
         self.Question = question
         self.Option_A = option_a
         self.Option_B = option_b
@@ -203,24 +226,67 @@ class McQuestion():
         d.mouse_event(surface, red)
 
         if a.Pressed:
+            if self.Option_A == self.Correct:
+                pygame.draw.rect(surface, green, (width//4, height//4, 400, 180))
+            else:
+                 pygame.draw.rect(surface, red, (width//4, height//4, 400, 180))
             self.Answered = True
             return self.Option_A
         if b.Pressed:
+            if self.Option_B == self.Correct:
+                pygame.draw.rect(surface, green, (width//4, height//4, 400, 180))
+            else:
+                 pygame.draw.rect(surface, red, (width//4, height//4, 400, 180))
             self.Answered = True
             return self.Option_B            
         if c.Pressed:
+            if self.Option_C == self.Correct:
+                pygame.draw.rect(surface, green, (width//4, height//4, 400, 180))
+            else:
+                 pygame.draw.rect(surface, red, (width//4, height//4, 400, 180))
             self.Answered = True
             return self.Option_C          
         if d.Pressed:
+            if self.Option_D == self.Correct:
+                pygame.draw.rect(surface, green, (width//4, height//4, 400, 180))
+            else:
+                 pygame.draw.rect(surface, red, (width//4, height//4, 400, 180))
             self.Answered = True
             return self.Option_D
-            
 
+class Player():
+    def __init__(self, name, score, x, y):
+        self.Name = name
+        self.Score = score
+        self.X = x
+        self.Y = y
+    def draw(self, surface, color):
+        pygame.draw.circle(surface, color, (self.X, self.Y), 20)
+    def update(self, amount, stepps):
+        return Player(self.Name, self.Score + amount, self.X, self.Y - (stepps*10))
+    def __str__(self):
+        return str(self.Name)
+    def reset_score(self):
+        return Player(self.Name, 0 , self.X, self.Y)
+    def reset_pos(self):
+        return Player(self.Name, self.Score, self.X, y_set)
+    def reset_all(self):
+        return Player("", 0, self.X, y_set)
 
+class MessageBox():
+    def __init__(self, height, width , x, y, color):
+        self.Height = height
+        self.Width = width
+        self.X = x
+        self.Y = y
+        self.Color = color
+    def draw(self, surface, message):
+        pygame.draw.rect(surface, self.Color, (self.X, self.Y, self.Width, self.Height))
+        surface.blit(font.render(message, 1 , black), (self.X + self.Width//4, self.Y + self.Height//8))
+                   
 def create_question(index):
     question = q_list.select(index)
     return McQuestion(question.select(0),question.select(1), question.select(2), question.select(3), question.select(4), question.select(5))
-
 
 def ask_name(screen, question): 
   "ask(screen, question: string) -> answer"
@@ -239,7 +305,10 @@ def ask_name(screen, question):
         name.append(chr(key))
     text_box = TextBox(question + str(print_list(name)), width//4, height//4, 600, 100, (red))
     text_box.draw(screen) #This function creates an text_box and asks for the users input
-  return name
+  if len(name) > 14:
+      return name[0:13]
+  else:
+      return name
     
 def print_list(list):
     """This function does not print the node/empty data structure list but a list in the shape of an array"""
@@ -261,7 +330,13 @@ def player_list(amount_players):
          return Node(player, player_list(amount_players + 1))
     else:
          return empty        
-    
+
+def coffeebreak(x, y):
+         display.blit(coffeeImg, (0, 0))
+         effect = pygame.mixer.Sound('coffee.wav') 
+         effect.play()
+
+   
 def game(color, width, height):
     """Defines the entire game, put the display functions inside the while loop """
     def start():
@@ -272,7 +347,7 @@ def game(color, width, height):
 
     def display_menu():
              """Displays the menu on the screen"""
-             display.blit(logo, (width//16 ,0))
+             display.blit(logo, (0 ,0))
              start_button.draw(display)
              start_button.mouse_event(display, light_green)
              start_button.draw_text("Start" , display)
@@ -320,7 +395,10 @@ def game(color, width, height):
     key = pygame.key.get_pressed()
     stepps = random.randint(0,5)
     player_turn = 0
-    
+    coffee = False
+    win_screen =  MessageBox(400, 800, 100, 50, blue)
+    win_back_button = Button(600, 100, 50, 300, red)
+              
     
     
     pygame.display.set_caption("Euromast: The Game") #Defines the title of the game
@@ -329,7 +407,7 @@ def game(color, width, height):
     while not process_events():
           key = pygame.key.get_pressed()
           display.fill(color)
-          if player_turn >3:
+          if player_turn > 3:
               player_turn = 0
 
           if check_button() == False:#The menu will only apear when nothing is pressed
@@ -337,24 +415,59 @@ def game(color, width, height):
          
           if start_button.Pressed and players.length() < 4:
              players = player_list(1)
+             player1 = Player(players.select(0), 0, x_set,y_set)
+             player2 = Player(players.select(1), 0, x_set+180,y_set)
+             player3 = Player(players.select(2), 0, x_set+360,y_set)
+             player4 = Player(players.select(3), 0, x_set+540,y_set)
           
           if start_button.Pressed:
+              display.blit(background,(0,0))
               back() 
               display.blit(dice.select(stepps), (870, 130))
-              players.print_pygame(width - 450, 50, 1)             
-              turn = font.render(players.select(player_turn) + " its your turn", 1, orange)
-              display.blit(turn, (550, 10))
-              display.blit(font2.render("-Press space to role the dice-", 1, black), (800, 270))
-             
+              players.print_pygame(width - 200, height - 200, 1)      
 
-          if back_button.Pressed: #The back button resets all buttons and clears the player list
+              display.blit(font.render(str(player1.Name) +" "+ str(player1.Score), 1, black), (player1.X -len(player1.Name), player1.Y + 20))
+              display.blit(font.render(str(player2.Name) +" "+ str(player2.Score), 1, black), (player2.X -len(player2.Name), player2.Y + 20))
+              display.blit(font.render(str(player3.Name) +" "+ str(player3.Score), 1, black), (player3.X -len(player3.Name), player3.Y + 20))
+              display.blit(font.render(str(player4.Name) +" "+ str(player4.Score), 1, black), (player4.X- len(player4.Name), player4.Y + 20))
+              
+              player1.draw(display, turquise)
+              player2.draw(display, green)       
+              player3.draw(display, red)
+              player4.draw(display, yellow)
+              
+              turn = font3.render(players.select(player_turn) + " its your turn", 1, blue)
+              display.blit(turn, (100, 450))
+              display.blit(font2.render("-Press space to role the dice-", 1, black), (800, 270))
+
+              if player1.Y < 20 or player2.Y < 20 or player3.Y < 20 or player4.Y < 20:
+                  win_screen.draw(display, "You won!!!!")
+                  win_back_button.draw(display)
+                  win_back_button.mouse_event(display, light_red)
+                  win_back_button.draw_text("Back To Menu", display)
+                  if player1.Y < 20:
+                      display.blit(font.render(player1.Name + " Your score is: " + str(player1.Score), 1, black), (300, 150))
+                      display.blit(font.render("And these are the losers: " + player2.Name + ", " + player3.Name + " and " + player4.Name, 1, black), (200, 250))
+                  if player2.Y < 20:
+                      display.blit(font.render(player2.Name + " Your score is: " + str(player2.Score), 1, black), (300, 150))
+                      display.blit(font.render("And these are the losers: " +player1.Name + ", "+ player3.Name + " and "+ player4.Name, 1, black), (200, 250))
+                  if player3.Y < 20:
+                      display.blit(font.render(player3.Name + " Your score is: " + str(player3.Score), 1, black), (300, 150))
+                      display.blit(font.render("And these are the losers: " +player2.Name + ", " + player1.Name + " and " + player4.Name, 1, black), (200, 250))
+                  if player4.Y < 20:
+                     display.blit(font.render(player4.Name + " Your score is: " + str(player4.Score), 1, black), (300, 150))
+                     display.blit(font.render("And these are the losers: " +player2.Name + ", " + player3.Name + " and "+ player1.Name, 1, black), (200, 250))
+              
+
+          if back_button.Pressed or win_back_button.Pressed: #The back button resets all buttons and clears the player list
               unpress_all()
               players = Node(empty, empty)
+              player_turn = 0
               select_question = False
               pygame.time.wait(100)
               back_button.Pressed = False
+              win_back_button.Pressed = False
               
-
           if rules_button.Pressed:
               if rules_button.Pressed: #Shows the rules of the game including a next button
                    display.fill(color)
@@ -368,30 +481,84 @@ def game(color, width, height):
                          back()
 
           if exit_button.Pressed:
-                sys.exit()
+              sys.exit()
 
-          if start_button.Pressed and key[pygame.K_SPACE]:
+          if start_button.Pressed and key[pygame.K_SPACE] and select_question == False:                    
              stepps = random.randint(0,5)
-             pygame.time.wait(random.randint(50, 100))
              select_question = True
+             time_left = 50000
              pick_question = random.randint(0, q_list.length() - 1)
              question = create_question(pick_question) 
-
-          if select_question == True and not key[pygame.K_SPACE]:
-             
+             pygame.mixer.music.load('thinking.mp3')
+             pygame.mixer.music.play()
+          
+          if select_question == True and not key[pygame.K_SPACE] and coffee == False:             
+             time_text = str(time_left // 1000)
+             pygame.draw.circle(display, kind_of_brown, (950, 350), 50)
+             display.blit(font.render(time_text, 1,black), (940, 340))
              question.draw(display)
              choice = question.answer(display)
              answered = False
+             points = round((time_left//1000) + (10 *stepps))
+             time_left -= 50
              if question.Correct == choice:
-                 display.blit(font.render("'" + choice + "'" + " is correct!!!", 1, black), (400, 10))
+                 if player_turn == 0:
+                     player1 = player1.update(points, stepps)
+                 if player_turn == 1:
+                     player2 = player2.update(points, stepps)
+                 if player_turn == 2:
+                     player3 = player3.update(points, stepps)
+                 if player_turn == 3:
+                     player4 = player4.update(points, stepps) 
                  player_turn +=1
-                 pygame.time.wait(500)
+                 pygame.mixer.music.stop()
                  select_question = False
-             if choice != question.Correct and question.Answered:
+             if choice != question.Correct and question.Answered or time_left == 0:
+                 if player_turn == 0:
+                     player1 = player1.update(-points, -stepps)
+                     if player1.Score < 0:
+                         player1 = player1.reset_score()
+                     if player1.Y > y_set:
+                         player1 = player1.reset_pos() 
+                 if player_turn == 1:
+                     player2 = player2.update(-points, -stepps)
+                     if player2.Score < 0:
+                         player2 = player2.reset_score()
+                     if player2.Y > y_set:
+                         player2 = player2.reset_pos() 
+                 if player_turn == y_set:
+                     player3 = player3.update(-points, -stepps)
+                     if player3.Score < 0:
+                         player3 = player3.reset_score()
+                     if player3.Y > y_set:
+                         player3 = player3.reset_pos() 
+                 if player_turn == 3:
+                     player4 = player4.update(-points, -stepps) 
+                     if player4.Score < 0:
+                         player4 = player4.reset_score()
+                     if player4.Y > y_set:
+                         player4 = player4.reset_pos() 
                  player_turn += 1
-                 pygame.time.wait(500)
+                 pygame.mixer.music.stop()
                  select_question = False
 
+          if select_question == True:
+                 if key[pygame.K_p]:
+                     coffee = True
+                     pygame.time.wait = 10
+
+          if coffee == False and select_question == True:
+                 display.blit(font.render("-Press P to get a coffee-", 1, black), (700, 550))
+
+          if coffee == True:
+                  coffeebreak(10, 10)
+                  display.blit(font.render("-Press O to drink your coffee-", 1, black), (700, 550))
+              
+                  if key[pygame.K_o]:
+                      coffee = False
+                 
+                       
+          #print(pygame.mouse.get_pos())
           pygame.display.update()
 
 game(white, width, height)
