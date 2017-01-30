@@ -24,7 +24,7 @@ turquise = 75, 220, 230
 yellow = 225, 200, 10
 kind_of_brown = 210, 200,110
 x_set = 150
-y_set = 30 #400 is the standard value for the start position 
+y_set = 400 #400 is the standard value for the start position 
 
 font = pygame.font.Font(None, 30)#Grote text, wordt gebruikt voor de buttons
 font2 = pygame.font.Font(None, 20)#Kleine text, wordt gebruikt voor het input scherm
