@@ -20,11 +20,11 @@ except:
 # check name
 def check_name(name):
     try:
-        ccp.execute("""SELECT count(p_id) FROM player WHERE p_name=%s""", (name))
+        ccp.execute("SELECT count(p_id) FROM player WHERE p_name = '"+name+"'")
     except Exception as error:
         return(error)
-    result = ccp.fetchall()
-    for row in result:
+    conn.commit()
+    result = ccp.fetchall()    for row in result:
         return row[0]
 
 # insert player name
