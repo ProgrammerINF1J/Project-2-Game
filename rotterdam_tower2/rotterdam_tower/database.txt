@@ -10,8 +10,8 @@ create table if not exists highscore (
     h_name varchar(14), 
     h_score int 
 ); 
-insert into player (p_name, p_score) values ('a', 0), ('b', 0), ('c', 0), ('d', 0); 
-insert into highscore (h_name, h_score) values ('a', 0), ('b', 0), ('c', 0), ('d', 0); 
+insert into player (p_name, p_score) values ('player1', 0), ('player2', 0), ('player3', 0), ('player4', 0); 
+insert into highscore (h_name, h_score) values ('player1', 0), ('player2', 0), ('player3', 0), ('player4', 0);
 select * from player, highscore where p_id = h_id;
  
 # UPDATE player SET score=0 WHERE name='player1'; 

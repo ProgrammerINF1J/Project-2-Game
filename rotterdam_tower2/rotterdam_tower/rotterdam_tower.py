@@ -374,46 +374,66 @@ def game(color, width, height):
               if (check_name(player1.Name) == 0):
                   print("doesn't exists")
                   insert_player(player1.Name, player1.Score)
-                  id = select_player_id(player1.Name)
-                  print("id:",id)
-                  insert_highscore(player1.Name, player1.Score, id)
+                  id = int(select_player_id(player1.Name))
+                  insert_highscore(id, player1.Name, player1.Score)
               elif (check_name(player1.Name) == 1):
                   print("does exists")
                   id = select_player_id(player1.Name)
-                  print("id:",id)
+                  if (player1.score < select_highscore(player1.score) or player1.score == select_highscore(player1.score)):
+                      update_score(player1.Score, id)
+                      print("p1 score ge-update")
+                  elif (player1.score > select_highscore(player1.score)):
+                      update_score(player1.Score, id)
+                      update_highscore(player1.Score, id)
+                      print("p1 highscore ge-update")
               # player 2
               if (check_name(player2.Name) == 0):
                   print("doesn't exists")
                   insert_player(player2.Name, player2.Score)
-                  id = select_player_id(player2.Name)
-                  print("id:",id)
-                  insert_highscore(player2.Name, player2.Score, id)
+                  id = int(select_player_id(player2.Name))
+                  insert_highscore(id, player2.Name, player2.Score)
               elif (check_name(player2.Name) == 1):
                   print("does exists")
-                  id = select_player_id(player2.Name)
-                  print("id:",id)
+                  id = select_player_id(player1.Name)
+                  if (player2.score < select_highscore(player2.score) or player2.score == select_highscore(player2.score)):
+                      update_score(player2.Score, id)
+                      print("p2 score ge-update")
+                  elif (player2.score > select_highscore(player2.score)):
+                      update_score(player2.Score, id)
+                      update_highscore(player2.Score, id)
+                      print("p2 highscore ge-update")
               # player 3
               if (check_name(player3.Name) == 0):
                   print("doesn't exists")
                   insert_player(player3.Name, player3.Score)
-                  id = select_player_id(player3.Name)
-                  print("id:",id)
-                  insert_highscore(player3.Name, player3.Score, id)
+                  id = int(select_player_id(player3.Name))
+                  insert_highscore(id, player3.Name, player3.Score)
               elif (check_name(player3.Name) == 1):
                   print("does exists")
                   id = select_player_id(player3.Name)
-                  print("id:",id)
+                  if (player3.score < select_highscore(player3.score) or player3.score == select_highscore(player3.score)):
+                      update_score(player3.Score, id)
+                      print("p3 score ge-update")
+                  elif (player3.score > select_highscore(player3.score)):
+                      update_score(player3.Score, id)
+                      update_highscore(player3.Score, id)
+                      print("p3 highscore ge-update")
               # player 4
               if (check_name(player4.Name) == 0):
                   print("doesn't exists")
                   insert_player(player4.Name, player4.Score)
-                  id = select_player_id(player4.Name)
-                  print("id:",id)
-                  insert_highscore(player4.Name, player4.Score, id)
+                  id = int(select_player_id(player4.Name))
+                  insert_highscore(id, player4.Name, player4.Score)
               elif (check_name(player4.Name) == 1):
                   print("does exists")
                   id = select_player_id(player4.Name)
-                  print("id:",id)
+                  if (player4.score < select_highscore(player4.score) or player4.score == select_highscore(player4.score)):
+                      update_score(player4.Score, id)
+                      print("p4 score ge-update")
+                  elif (player4.score > select_highscore(player4.score)):
+                      update_score(player4.Score, id)
+                      update_highscore(player4.Score, id)
+                      print("p4 highscore ge-update")
               unpress_all()
               players = Node(empty, empty)
               select_question = False
@@ -456,19 +476,15 @@ def game(color, width, height):
                  print("Question good")
                  if player_turn == 0:
                      player1 = player1.update(points, stepps)
-                     p1.Score = player1.Score
                      print("p1:",player1.Score)
                  if player_turn == 1:
                      player2 = player2.update(points, stepps)
-                     p2.Score = player2.Score
                      print("p2:",player2.Score)
                  if player_turn == 2:
                      player3 = player3.update(points, stepps)
-                     p3.Score = player3.Score
                      print("p3:",player3.Score)
                  if player_turn == 3:
                      player4 = player4.update(points, stepps)
-                     p4.Score = player4.Score
                      print("p4:",player4.Score)
                  player_turn +=1
                  #pygame.time.wait(500)
@@ -479,38 +495,30 @@ def game(color, width, height):
                      player1 = player1.update(-points, -stepps)
                      if player1.Score < 0:
                          player1 = player1.reset_score()
-                         p1.Score = 0
                      if player1.Y > y_set:
                          player1 = player1.reset_pos()
-                     p1.Score = player1.Score
-                     print("p1:",p1.Score)
+                     print("p1:",player1.Score)
                  if player_turn == 1:
                      player2 = player2.update(-points, -stepps)
                      if player2.Score < 0:
                          player2 = player2.reset_score()
-                         p2.Score = 0
                      if player2.Y > y_set:
                          player2 = player2.reset_pos()
-                     p2.Score = player2.Score
-                     print("p2:",p2.Score)
+                     print("p2:",player2.Score)
                  if player_turn == 2:
                      player3 = player3.update(-points, -stepps)
                      if player3.Score < 0:
                          player3 = player3.reset_score()
-                         p3.Score = 0
                      if player3.Y > y_set:
                          player3 = player3.reset_pos()
-                     p3.Score = player3.Score
-                     print("p3:",p3.Score)
+                     print("p3:",player3.Score)
                  if player_turn == 3:
                      player4 = player4.update(-points, -stepps)
                      if player4.Score < 0:
                          player4 = player4.reset_score()
-                         p4.Score = 0
                      if player4.Y > y_set:
                          player4 = player4.reset_pos()
-                     p4.Score = player4.Score
-                     print("p4:",p4.Score)
+                     print("p4:",player4.Score)
                  player_turn += 1
                  #pygame.time.wait(500)
                  select_question = False

@@ -46,9 +46,9 @@ def select_player_id(name):
         return row[0]
 
 # insert highscore
-def insert_highscore(name, score, id):
+def insert_highscore(id, name, score):
     try:
-        ccp.execute("insert into highscre(h_name, h_score) values ('"+name+"', '"+score+"') where id = '"+id+"'")
+        ccp.execute("insert into highscore (h_id, h_name, h_score) values(%s, %s, %s)""", (id, name, score))
     except Exception as error:
         return(error)
     conn.commit()
@@ -63,19 +63,38 @@ def select_highscore(name):
     result = cch.fetchall()    for row in result:
         return row[0]
 
-# update score
-def update_score(name, score):
+# update player_score
+def update_score(score, id):
     try:
-        ccp.execute("""UPDATE player SET p_score=%s WHERE p_name=%s""", (score, name))
+        ccp.execute("""UPDATE player SET p_score=%s WHERE p_id=%s""", (score, id))
     except Exception as error:
         return(error)
     conn.commit()
 
-#reset score
-def reset():
+# update high_score
+def update_highscore(score, id):
     try:
-        cc.execute("""UPDATE player SET score=%s WHERE name=%s""", (0, 'player1'))
+        cch.execute("""UPDATE highscore SET h_score=%s WHERE h_id=%s""", (score, id))
     except Exception as error:
         return(error)
     conn.commit()
-#reset()
+
+# reset score
+def reset_db():
+    try:
+        cc.execute("""drop table if exists player, highscore; 
+            create table if not exists player ( 
+	            p_id SERIAL primary key, 
+                p_name varchar(14), 
+	            p_score int
+            ); 
+            create table if not exists highscore ( 
+	            h_id SERIAL primary key, 
+                h_name varchar(14), 
+                h_score int 
+            ); 
+            insert into player (p_name, p_score) values ('a', 0), ('b', 0), ('c', 0), ('d', 0); 
+            insert into highscore (h_name, h_score) values ('a', 0), ('b', 0), ('c', 0), ('d', 0); """)
+    except Exception as error:
+        return(error)
+    conn.commit()
