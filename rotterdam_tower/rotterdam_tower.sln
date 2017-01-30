@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "rotterdam_tower", "rotterdam_tower\rotterdam_tower.pyproj", "{A4410953-498C-430C-890C-E62C0117167F}"
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "pygame_1", "..\pygame_1\pygame_1\pygame_1.pyproj", "{CD484680-D58B-4AA7-BE09-0D490F6EAB0E}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "game", "..\WIP\game.pyproj", "{14B99F3B-BC81-4B74-910F-376D07045C32}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +15,8 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{A4410953-498C-430C-890C-E62C0117167F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A4410953-498C-430C-890C-E62C0117167F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CD484680-D58B-4AA7-BE09-0D490F6EAB0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CD484680-D58B-4AA7-BE09-0D490F6EAB0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14B99F3B-BC81-4B74-910F-376D07045C32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14B99F3B-BC81-4B74-910F-376D07045C32}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

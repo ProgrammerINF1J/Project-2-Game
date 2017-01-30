@@ -20,18 +20,12 @@ except:
 # check name
 def check_name(name):
     try:
-        ccp.execute("""SELECT count(p_id) FROM player WHERE p_name=%s""", (name))
-        return (list(ccp))
+        ccp.execute("SELECT count(p_id) FROM player WHERE p_name = '"+name+"'")
     except Exception as error:
         return(error)
-
-# update score
-def update_score(name, score):
-    try:
-        ccp.execute("""UPDATE player SET p_score=%s WHERE p_name=%s""", (score, name))
-    except Exception as error:
-        print(error)
     conn.commit()
+    result = ccp.fetchall()    for row in result:
+        return row[0]
 
 # insert player name
 def insert_player(name, score):
@@ -41,10 +35,10 @@ def insert_player(name, score):
         print(error)
     conn.commit()
 
-# update player name
-def update_player(name, score):
+# update score
+def update_score(name, score):
     try:
-        ccp.execute("""UPDATE player SET p_score='%s' WHERE p_name = %s""", (score, name))
+        ccp.execute("""UPDATE player SET p_score=%s WHERE p_name=%s""", (score, name))
     except Exception as error:
         print(error)
     conn.commit()

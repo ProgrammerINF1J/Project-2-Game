@@ -33,17 +33,23 @@
     <InterpreterReference Include="{2af0f10d-7135-4994-9156-5d01c9c11b7e}\3.2" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="background.png" />
-    <Content Include="Dobbel1.png" />
-    <Content Include="Dobbel2.png" />
-    <Content Include="Dobbel3.png" />
-    <Content Include="Dobbel4.png" />
-    <Content Include="Dobbel5.png" />
-    <Content Include="Dobbel6.png" />
-    <Content Include="euromast.jpg" />
-    <Content Include="Knipsel1.PNG" />
-    <Content Include="Knipsel2.PNG" />
-    <Content Include="skyline.png" />
+    <Folder Include="pictures\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="database.txt">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="pictures\background.png" />
+    <Content Include="pictures\coffee.png" />
+    <Content Include="pictures\Dobbel1.png" />
+    <Content Include="pictures\Dobbel2.png" />
+    <Content Include="pictures\Dobbel3.png" />
+    <Content Include="pictures\Dobbel4.png" />
+    <Content Include="pictures\Dobbel5.png" />
+    <Content Include="pictures\Dobbel6.png" />
+    <Content Include="pictures\Knipsel1.png" />
+    <Content Include="pictures\Knipsel2.png" />
+    <Content Include="pictures\skyline.png" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

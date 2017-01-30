@@ -370,8 +370,6 @@ def game(color, width, height):
               display.blit(font2.render("-Press space to role the dice-", 1, black), (800, 270))            
 
           if back_button.Pressed: #The back button resets all buttons and clears the player list
-              p1.Name = player1.Name; p2.Name = player2.Name; p3.Name = player3.Name; p4.Name = player4.Name; 
-              p1.Score = player1.Score; p2.Score = player2.Score; p3.Score = player3.Score; p4.Score = player4.Score; 
               print ("p1:", p1.Name, "score:", p1.Score, "\n"
                       "p2:",  p2.Name, "score:", p2.Score, "\n"
                       "p3:", p3.Name, "score:", p3.Score, "\n"
@@ -412,7 +410,7 @@ def game(color, width, height):
               players = Node(empty, empty)
               select_question = False
               pygame.time.wait(100)
-              back_button.Pressed = False            
+              back_button.Pressed = False
 
           if rules_button.Pressed:
               if rules_button.Pressed: #Shows the rules of the game including a next button
