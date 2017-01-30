@@ -38,19 +38,15 @@ class Node():
     def print_pygame(self, x, y, n): 
         """displays the list on the pygame window"""
         if (str(n) == "1"):
-            global p1
             p1 = Player(self.Value, 0, x, y)
             text = font.render(str(n) + ": " + p1.Name,1, black)
         elif (str(n) == "2"):
-            global p2
             p2 = Player(self.Value, 0, x, y)
             text = font.render(str(n) + ": " + p2.Name,1, black)
         elif (str(n) == "3"):
-            global p3
             p3 = Player(self.Value, 0, x, y)
             text = font.render(str(n) + ": " + p3.Name,1, black)
         elif (str(n) == "4"):
-            global p4
             p4 = Player(self.Value, 0, x, y)
             text = font.render(str(n) + ": " + p4.Name,1, black)
         display.blit(text, (x, y))
@@ -231,26 +227,26 @@ def create_question(index):
     return McQuestion(question.select(0),question.select(1), question.select(2), question.select(3), question.select(4), question.select(5))
 
 def ask_name(screen, question): 
-    "ask(screen, question: string) -> answer"
-    name = []
+  "ask(screen, question: string) -> answer"
+  name = []
+  text_box = TextBox(question + str(print_list(name)), width//4, height//4, 600, 100, (red))
+  text_box.draw(screen)
+  while 1:
+    key = get_key()
+    if key == pygame.K_BACKSPACE:
+      name = name[0:-1] 
+    elif key == pygame.K_RETURN:
+        break
+    elif key <= 127:
+        if key == pygame.K_RSHIFT:
+            key = ord(key) - 32
+        name.append(chr(key))
     text_box = TextBox(question + str(print_list(name)), width//4, height//4, 600, 100, (red))
-    text_box.draw(screen)
-    while 1:
-        key = get_key()
-        if key == pygame.K_BACKSPACE:
-            name = name[0:-1] 
-        elif key == pygame.K_RETURN:
-            break
-        elif key <= 127:
-            if key == pygame.K_RSHIFT:
-                key = ord(key) - 32
-            name.append(chr(key))
-        text_box = TextBox(question + str(print_list(name)), width//4, height//4, 600, 100, (red))
-        text_box.draw(screen) #This function creates an text_box and asks for the users input
-    if len(name) > 14:
-        return name[0:13]
-    else:
-        return name
+    text_box.draw(screen) #This function creates an text_box and asks for the users input
+  if len(name) > 14:
+      return name[0:13]
+  else:
+      return name
     
 def print_list(list):
     """This function does not print the node/empty data structure list but a list in the shape of an array"""
@@ -282,19 +278,19 @@ def game(color, width, height):
         return False
 
     def display_menu():
-             """Displays the menu on the screen"""
-             display.blit(logo, (0 ,0))
-             start_button.draw(display)
-             start_button.mouse_event(display, light_green)
-             start_button.draw_text("Start" , display)
+        """Displays the menu on the screen"""
+        display.blit(logo, (0 ,0))
+        start_button.draw(display)
+        start_button.mouse_event(display, light_green)
+        start_button.draw_text("Start" , display)
 
-             exit_button.draw(display)
-             exit_button.mouse_event(display, light_red)
-             exit_button.draw_text("Exit" , display)
+        exit_button.draw(display)
+        exit_button.mouse_event(display, light_red)
+        exit_button.draw_text("Exit" , display)
 
-             rules_button.draw(display)
-             rules_button.mouse_event(display, light_blue)
-             rules_button.draw_text("Rules", display)
+        rules_button.draw(display)
+        rules_button.mouse_event(display, light_blue)
+        rules_button.draw_text("Rules", display)
 
     def back():
         """Defines a back button"""
@@ -367,45 +363,57 @@ def game(color, width, height):
               
               turn = font3.render(players.select(player_turn) + " its your turn", 1, blue)
               display.blit(turn, (200, 450))
-              display.blit(font2.render("-Press space to role the dice-", 1, black), (800, 270))            
-
+              display.blit(font2.render("-Press space to role the dice-", 1, black), (800, 270))
+             
           if back_button.Pressed: #The back button resets all buttons and clears the player list
-              print ("p1:", p1.Name, "score:", p1.Score, "\n"
-                      "p2:",  p2.Name, "score:", p2.Score, "\n"
-                      "p3:", p3.Name, "score:", p3.Score, "\n"
-                      "p4:", p4.Name, "score:", p4.Score, "\n")
+              print ("p1:", player1.Name, "score:", player1.Score, "\n"
+                      "p2:",  player2.Name, "score:", player2.Score, "\n"
+                      "p3:", player3.Name, "score:", player3.Score, "\n"
+                      "p4:", player4.Name, "score:", player4.Score, "\n")
               # player 1
-              print(check_name(p1.Name))
-              if (check_name(p1.Name) == 0):
+              if (check_name(player1.Name) == 0):
                   print("doesn't exists")
-                  insert_player(p1.Name, p1.Score)
-              elif (check_name(p1.Name) == 1):
+                  insert_player(player1.Name, player1.Score)
+                  id = select_player_id(player1.Name)
+                  print("id:",id)
+                  insert_highscore(player1.Name, player1.Score, id)
+              elif (check_name(player1.Name) == 1):
                   print("does exists")
-                  update_score(p1.Name, p1.Score)
+                  id = select_player_id(player1.Name)
+                  print("id:",id)
               # player 2
-              print(check_name(p2.Name))
-              if (check_name(p2.Name) == 0):
+              if (check_name(player2.Name) == 0):
                   print("doesn't exists")
-                  insert_player(p2.Name, p2.Score)
-              elif (check_name(p2.Name) == 1):
+                  insert_player(player2.Name, player2.Score)
+                  id = select_player_id(player2.Name)
+                  print("id:",id)
+                  insert_highscore(player2.Name, player2.Score, id)
+              elif (check_name(player2.Name) == 1):
                   print("does exists")
-                  update_score(p2.Name, p2.Score)
+                  id = select_player_id(player2.Name)
+                  print("id:",id)
               # player 3
-              print(check_name(p3.Name))
-              if (check_name(p3.Name) == 0):
+              if (check_name(player3.Name) == 0):
                   print("doesn't exists")
-                  insert_player(p3.Name, p3.Score)
-              elif (check_name(p3.Name) == 1):
+                  insert_player(player3.Name, player3.Score)
+                  id = select_player_id(player3.Name)
+                  print("id:",id)
+                  insert_highscore(player3.Name, player3.Score, id)
+              elif (check_name(player3.Name) == 1):
                   print("does exists")
-                  update_score(p3.Name, p3.Score)
+                  id = select_player_id(player3.Name)
+                  print("id:",id)
               # player 4
-              print(check_name(p4.Name))
-              if (check_name(p4.Name) == 0):
-                  print("doesn't exists\n")
-                  insert_player(p4.Name, p4.Score)
-              elif (check_name(p4.Name) == 1):
-                  print("does exists\n")
-                  update_score(p4.Name, p4.Score)
+              if (check_name(player4.Name) == 0):
+                  print("doesn't exists")
+                  insert_player(player4.Name, player4.Score)
+                  id = select_player_id(player4.Name)
+                  print("id:",id)
+                  insert_highscore(player4.Name, player4.Score, id)
+              elif (check_name(player4.Name) == 1):
+                  print("does exists")
+                  id = select_player_id(player4.Name)
+                  print("id:",id)
               unpress_all()
               players = Node(empty, empty)
               select_question = False
