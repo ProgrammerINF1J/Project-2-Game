@@ -43,9 +43,17 @@
     <Content Include="pictures\Knipsel1.png" />
     <Content Include="pictures\Knipsel2.png" />
     <Content Include="pictures\skyline.png" />
+    <Content Include="sounds\click.wav" />
+    <Content Include="sounds\coffee.wav" />
+    <Content Include="sounds\fault.wav" />
+    <Content Include="sounds\good.wav" />
+    <Content Include="sounds\startup.wav" />
+    <Content Include="sounds\thinking.mp3" />
+    <Content Include="sounds\winning.wav" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="pictures\" />
+    <Folder Include="sounds\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

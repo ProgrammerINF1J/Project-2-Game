@@ -113,6 +113,8 @@ class Button():
         if self.X + self.Width > mouse[0] > self.X and self.Height + self.Y > mouse[1] > self.Y:
             pygame.draw.rect(surface, color, (self.X, self.Y, self.Width, self.Height))
             if click[0] == 1:
+                click = pygame.mixer.Sound('sounds/click.wav') 
+                click.play()
                 self.Pressed = True
 
 #question library: multiple choice
@@ -290,6 +292,11 @@ def rules(x,y):
 def rules1(x,y):
     display.blit(rulesImg1, (x*0,5,y*0,5))
 
+def coffeebreak(x, y):
+    display.blit(coffeeImg, (0, 0))
+    effect = pygame.mixer.Sound('sounds/coffee.wav') 
+    effect.play()
+
 def player_list(amount_players):
     """Returns a list of all players, including names starts with 1 and ends with 4"""
     if amount_players < 5: 
@@ -297,11 +304,6 @@ def player_list(amount_players):
          return Node(player, player_list(amount_players + 1))
     else:
          return empty        
-
-def coffeebreak(x, y):
-    display.blit(coffeeImg, (0, 0))
-    effect = pygame.mixer.Sound('coffee.wav') 
-    effect.play()
    
 def game(color, width, height):
     """Defines the entire game, put the display functions inside the while loop """
@@ -391,10 +393,10 @@ def game(color, width, height):
             elif (check_name(player1.Name) == 1):
                 print("does exists")
                 id = select_player_id(player1.Name)
-                if (player1.score < select_highscore(player1.score) or player1.score == select_highscore(player1.score)):
+                if (player1.Score < select_highscore(player1.Name) or player1.Score == select_highscore(player1.Name)):
                     update_score(player1.Score, id)
                     print("p1 score ge-update")
-                elif (player1.score > select_highscore(player1.score)):
+                elif (player1.Score > select_highscore(player1.Name)):
                     update_score(player1.Score, id)
                     update_highscore(player1.Score, id)
                     print("p1 highscore ge-update")
@@ -406,14 +408,14 @@ def game(color, width, height):
                 insert_highscore(id, player2.Name, player2.Score)
             elif (check_name(player2.Name) == 1):
                 print("does exists")
-                id = select_player_id(player1.Name)
-                if (player2.score < select_highscore(player2.score) or player2.score == select_highscore(player2.score)):
+                id = select_player_id(player2.Name)
+                if (player2.Score < select_highscore(player2.Name) or player2.Score == select_highscore(player2.Name)):
                     update_score(player2.Score, id)
-                    print("p2 score ge-update")
-                elif (player2.score > select_highscore(player2.score)):
+                    print("p1 score ge-update")
+                elif (player2.Score > select_highscore(player2.Score)):
                     update_score(player2.Score, id)
                     update_highscore(player2.Score, id)
-                    print("p2 highscore ge-update")
+                    print("p1 highscore ge-update")
             # player 3
             if (check_name(player3.Name) == 0):
                 print("doesn't exists")
@@ -423,29 +425,29 @@ def game(color, width, height):
             elif (check_name(player3.Name) == 1):
                 print("does exists")
                 id = select_player_id(player3.Name)
-                if (player3.score < select_highscore(player3.score) or player3.score == select_highscore(player3.score)):
+                if (player3.Score < select_highscore(player3.Score) or player3.Name == select_highscore(player3.Name)):
                     update_score(player3.Score, id)
-                    print("p3 score ge-update")
-                elif (player3.score > select_highscore(player3.score)):
+                    print("p1 score ge-update")
+                elif (player3.Score > select_highscore(player3.Score)):
                     update_score(player3.Score, id)
                     update_highscore(player3.Score, id)
-                    print("p3 highscore ge-update")
+                    print("p1 highscore ge-update")
             # player 4
             if (check_name(player4.Name) == 0):
                 print("doesn't exists")
                 insert_player(player4.Name, player4.Score)
                 id = int(select_player_id(player4.Name))
                 insert_highscore(id, player4.Name, player4.Score)
-            elif (check_name(player4.Name) == 1):
+            elif (check_name(player1.Name) == 1):
                 print("does exists")
                 id = select_player_id(player4.Name)
-                if (player4.score < select_highscore(player4.score) or player4.score == select_highscore(player4.score)):
+                if (player4.Score < select_highscore(player4.Score) or player4.Name == select_highscore(player4.Name)):
                     update_score(player4.Score, id)
-                    print("p4 score ge-update")
-                elif (player4.score > select_highscore(player4.score)):
+                    print("p1 score ge-update")
+                elif (player4.Score > select_highscore(player4.Score)):
                     update_score(player4.Score, id)
                     update_highscore(player4.Score, id)
-                    print("p4 highscore ge-update")
+                    print("p1 highscore ge-update")
             unpress_all()
             players = Node(empty, empty)
             player_turn = 0
@@ -458,6 +460,8 @@ def game(color, width, height):
              player2 = Player(players.select(1), 0, x_set+180,y_set)
              player3 = Player(players.select(2), 0, x_set+360,y_set)
              player4 = Player(players.select(3), 0, x_set+540,y_set)
+             startup = pygame.mixer.Sound('sounds/startup.wav') 
+             startup.play()  
           
           if start_button.Pressed:
               display.blit(background,(0,0))
@@ -478,6 +482,8 @@ def game(color, width, height):
               display.blit(font2.render("-Press space to role the dice-", 1, black), (800, 270))
 
               if player1.Y < 20 or player2.Y < 20 or player3.Y < 20 or player4.Y < 20:
+                  win = pygame.mixer.Sound('sounds/winning.wav') 
+                  win.play()
                   win_screen.draw(display, "You won!!!!")
                   win_back_button.draw(display)
                   win_back_button.mouse_event(display, light_red)
@@ -535,6 +541,8 @@ def game(color, width, height):
              answered = False
              points = round((time_left//1000) + (10 *stepps))
              if question.Correct == choice:
+                 good = pygame.mixer.Sound('sounds/good.wav') 
+                 good.play()
                  #display.blit(font.render("'" + choice + "'" + " is correct!!!", 1, black), (400, 10))
                  print("Question good")
                  if player_turn == 0:
@@ -555,6 +563,8 @@ def game(color, width, height):
                  select_question = False
              if choice != question.Correct and question.Answered or time_left == 0:
                  print("Question wrong")
+                 fault = pygame.mixer.Sound('sounds/fault.wav') 
+                 fault.play()
                  if player_turn == 0:
                      player1 = player1.update(-points, -stepps)
                      if player1.Score < 0:
@@ -602,6 +612,7 @@ def game(color, width, height):
               
                   if key[pygame.K_o]:
                       coffee = False
+
           pygame.display.update()
 
 game(white, width, height)

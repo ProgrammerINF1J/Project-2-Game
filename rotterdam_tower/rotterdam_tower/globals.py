@@ -18,6 +18,7 @@ dice4Img = pygame.image.load('pictures/Dobbel4.png')
 dice5Img = pygame.image.load('pictures/Dobbel5.png')
 dice6Img = pygame.image.load('pictures/Dobbel6.png')
 background = pygame.image.load('pictures/background.png')
+coffeeImg = pygame.image.load("pictures/coffee.png")
 
 #color library
 white = 255, 255, 255
