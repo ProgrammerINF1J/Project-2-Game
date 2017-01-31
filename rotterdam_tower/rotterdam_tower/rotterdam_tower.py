@@ -138,6 +138,8 @@ question19 = Node("What are geograthical coordinates of Rotterdam?", Node("32 N 
 question20 = Node("What are the colors of the Rotterdam flag?", Node("Yellow and Black", Node("Red, Yellow, Blue", Node("Green and White", Node("Red, White, Blue", Node("Green and White", empty))))))
 question21 = Node("What is 454 times 15?", Node("4.930", Node("6.810", Node("5.320", Node("2.234", Node("6.810", empty))))))
 question22 = Node("What is the oldest football club of Rotterdam?", Node("Excelcior", Node("Feynoord", Node("Ajax", Node("Sparta", Node("Feynoord", empty))))))
+question23 = Node("America has the Trump Towers, what has Rotterdam?", Node("the Eifel Towers", Node("Lee Towers", Node("The Euro Towers", Node("The Towers of Pisa", Node("Lee Towers", empty))))))
+question24 = Node("How much degrees is 2pi radians?", Node("180 degrees", Node("360 degrees Celcius", Node("360 degrees", Node("90 degrees", Node("360 degrees", empty))))))
 # Node("", Node("", Node("", Node("", Node("", Node("", empty)))))) standard question = [Q, A, B, C, D, answer, empty]
 
 q_list = Node(question1, Node(question2, Node(question3, Node(question4, Node(question5, Node(question6, Node(question7, Node(question8, Node(question9, Node(question10, Node(question11, Node(question12, Node(question13, Node(question14, Node(question15, Node(question16, Node(question17, Node(question18, Node(question19, Node(question20, Node(question21, Node(question22, empty))))))))))))))))))))))
@@ -193,15 +195,31 @@ class McQuestion():
         d.mouse_event(surface, red)
 
         if a.Pressed:
+            if self.Option_A == self.Correct:
+                pygame.draw.rect(surface, green, (width//4, height//4, 400, 180))
+            else:
+                 pygame.draw.rect(surface, red, (width//4, height//4, 400, 180))
             self.Answered = True
             return self.Option_A
         if b.Pressed:
+            if self.Option_B == self.Correct:
+                pygame.draw.rect(surface, green, (width//4, height//4, 400, 180))
+            else:
+                 pygame.draw.rect(surface, red, (width//4, height//4, 400, 180))
             self.Answered = True
             return self.Option_B            
         if c.Pressed:
+            if self.Option_C == self.Correct:
+                pygame.draw.rect(surface, green, (width//4, height//4, 400, 180))
+            else:
+                 pygame.draw.rect(surface, red, (width//4, height//4, 400, 180))
             self.Answered = True
             return self.Option_C          
         if d.Pressed:
+            if self.Option_D == self.Correct:
+                pygame.draw.rect(surface, green, (width//4, height//4, 400, 180))
+            else:
+                 pygame.draw.rect(surface, red, (width//4, height//4, 400, 180))
             self.Answered = True
             return self.Option_D
 
@@ -222,6 +240,17 @@ class Player():
     def reset_pos(self):
         return Player(self.Name, self.Score, self.X, y_set)
             
+class MessageBox():
+    def __init__(self, height, width , x, y, color):
+        self.Height = height
+        self.Width = width
+        self.X = x
+        self.Y = y
+        self.Color = color
+    def draw(self, surface, message):
+        pygame.draw.rect(surface, self.Color, (self.X, self.Y, self.Width, self.Height))
+        surface.blit(font.render(message, 1 , black), (self.X + self.Width//4, self.Y + self.Height//8))
+
 def create_question(index):
     question = q_list.select(index)
     return McQuestion(question.select(0),question.select(1), question.select(2), question.select(3), question.select(4), question.select(5))
@@ -268,6 +297,11 @@ def player_list(amount_players):
          return Node(player, player_list(amount_players + 1))
     else:
          return empty        
+
+def coffeebreak(x, y):
+    display.blit(coffeeImg, (0, 0))
+    effect = pygame.mixer.Sound('coffee.wav') 
+    effect.play()
    
 def game(color, width, height):
     """Defines the entire game, put the display functions inside the while loop """
@@ -327,6 +361,9 @@ def game(color, width, height):
     key = pygame.key.get_pressed()
     stepps = random.randint(0,5)
     player_turn = 0
+    coffee = False
+    win_screen =  MessageBox(400, 800, 100, 50, blue)
+    win_back_button = Button(600, 100, 50, 300, red)
     
     pygame.display.set_caption("Euromast: The Game") #Defines the title of the game
     
@@ -339,7 +376,82 @@ def game(color, width, height):
 
           if check_button() == False:#The menu will only apear when nothing is pressed
                 display_menu() #When you press a button the menu will disappear
-         
+
+          if win_back_button.Pressed:
+            print ("p1:", player1.Name, "score:", player1.Score, "\n"
+                    "p2:",  player2.Name, "score:", player2.Score, "\n"
+                    "p3:", player3.Name, "score:", player3.Score, "\n"
+                    "p4:", player4.Name, "score:", player4.Score, "\n")
+            # player 1
+            if (check_name(player1.Name) == 0):
+                print("doesn't exists")
+                insert_player(player1.Name, player1.Score)
+                id = int(select_player_id(player1.Name))
+                insert_highscore(id, player1.Name, player1.Score)
+            elif (check_name(player1.Name) == 1):
+                print("does exists")
+                id = select_player_id(player1.Name)
+                if (player1.score < select_highscore(player1.score) or player1.score == select_highscore(player1.score)):
+                    update_score(player1.Score, id)
+                    print("p1 score ge-update")
+                elif (player1.score > select_highscore(player1.score)):
+                    update_score(player1.Score, id)
+                    update_highscore(player1.Score, id)
+                    print("p1 highscore ge-update")
+            # player 2
+            if (check_name(player2.Name) == 0):
+                print("doesn't exists")
+                insert_player(player2.Name, player2.Score)
+                id = int(select_player_id(player2.Name))
+                insert_highscore(id, player2.Name, player2.Score)
+            elif (check_name(player2.Name) == 1):
+                print("does exists")
+                id = select_player_id(player1.Name)
+                if (player2.score < select_highscore(player2.score) or player2.score == select_highscore(player2.score)):
+                    update_score(player2.Score, id)
+                    print("p2 score ge-update")
+                elif (player2.score > select_highscore(player2.score)):
+                    update_score(player2.Score, id)
+                    update_highscore(player2.Score, id)
+                    print("p2 highscore ge-update")
+            # player 3
+            if (check_name(player3.Name) == 0):
+                print("doesn't exists")
+                insert_player(player3.Name, player3.Score)
+                id = int(select_player_id(player3.Name))
+                insert_highscore(id, player3.Name, player3.Score)
+            elif (check_name(player3.Name) == 1):
+                print("does exists")
+                id = select_player_id(player3.Name)
+                if (player3.score < select_highscore(player3.score) or player3.score == select_highscore(player3.score)):
+                    update_score(player3.Score, id)
+                    print("p3 score ge-update")
+                elif (player3.score > select_highscore(player3.score)):
+                    update_score(player3.Score, id)
+                    update_highscore(player3.Score, id)
+                    print("p3 highscore ge-update")
+            # player 4
+            if (check_name(player4.Name) == 0):
+                print("doesn't exists")
+                insert_player(player4.Name, player4.Score)
+                id = int(select_player_id(player4.Name))
+                insert_highscore(id, player4.Name, player4.Score)
+            elif (check_name(player4.Name) == 1):
+                print("does exists")
+                id = select_player_id(player4.Name)
+                if (player4.score < select_highscore(player4.score) or player4.score == select_highscore(player4.score)):
+                    update_score(player4.Score, id)
+                    print("p4 score ge-update")
+                elif (player4.score > select_highscore(player4.score)):
+                    update_score(player4.Score, id)
+                    update_highscore(player4.Score, id)
+                    print("p4 highscore ge-update")
+            unpress_all()
+            players = Node(empty, empty)
+            player_turn = 0
+            select_question = False
+            win_back_button.Pressed = False
+
           if start_button.Pressed and players.length() < 4:
              players = player_list(1)
              player1 = Player(players.select(0), 0, x_set,y_set)
@@ -364,80 +476,31 @@ def game(color, width, height):
               turn = font3.render(players.select(player_turn) + " its your turn", 1, blue)
               display.blit(turn, (200, 450))
               display.blit(font2.render("-Press space to role the dice-", 1, black), (800, 270))
+
+              if player1.Y < 20 or player2.Y < 20 or player3.Y < 20 or player4.Y < 20:
+                  win_screen.draw(display, "You won!!!!")
+                  win_back_button.draw(display)
+                  win_back_button.mouse_event(display, light_red)
+                  win_back_button.draw_text("Back To Menu", display)
+                  if player1.Y < 20:
+                      display.blit(font.render(player1.Name + " Your score is: " + str(player1.Score), 1, black), (300, 150))
+                      display.blit(font.render("And these are the losers: " + player2.Name + ", " + player3.Name + " and " + player4.Name, 1, black), (200, 250))
+                  if player2.Y < 20:
+                      display.blit(font.render(player2.Name + " Your score is: " + str(player2.Score), 1, black), (300, 150))
+                      display.blit(font.render("And these are the losers: " +player1.Name + ", "+ player3.Name + " and "+ player4.Name, 1, black), (200, 250))
+                  if player3.Y < 20:
+                      display.blit(font.render(player3.Name + " Your score is: " + str(player3.Score), 1, black), (300, 150))
+                      display.blit(font.render("And these are the losers: " +player2.Name + ", " + player1.Name + " and " + player4.Name, 1, black), (200, 250))
+                  if player4.Y < 20:
+                     display.blit(font.render(player4.Name + " Your score is: " + str(player4.Score), 1, black), (300, 150))
+                     display.blit(font.render("And these are the losers: " +player2.Name + ", " + player3.Name + " and "+ player1.Name, 1, black), (200, 250))         
              
           if back_button.Pressed: #The back button resets all buttons and clears the player list
-              print ("p1:", player1.Name, "score:", player1.Score, "\n"
-                      "p2:",  player2.Name, "score:", player2.Score, "\n"
-                      "p3:", player3.Name, "score:", player3.Score, "\n"
-                      "p4:", player4.Name, "score:", player4.Score, "\n")
-              # player 1
-              if (check_name(player1.Name) == 0):
-                  print("doesn't exists")
-                  insert_player(player1.Name, player1.Score)
-                  id = int(select_player_id(player1.Name))
-                  insert_highscore(id, player1.Name, player1.Score)
-              elif (check_name(player1.Name) == 1):
-                  print("does exists")
-                  id = select_player_id(player1.Name)
-                  if (player1.score < select_highscore(player1.score) or player1.score == select_highscore(player1.score)):
-                      update_score(player1.Score, id)
-                      print("p1 score ge-update")
-                  elif (player1.score > select_highscore(player1.score)):
-                      update_score(player1.Score, id)
-                      update_highscore(player1.Score, id)
-                      print("p1 highscore ge-update")
-              # player 2
-              if (check_name(player2.Name) == 0):
-                  print("doesn't exists")
-                  insert_player(player2.Name, player2.Score)
-                  id = int(select_player_id(player2.Name))
-                  insert_highscore(id, player2.Name, player2.Score)
-              elif (check_name(player2.Name) == 1):
-                  print("does exists")
-                  id = select_player_id(player1.Name)
-                  if (player2.score < select_highscore(player2.score) or player2.score == select_highscore(player2.score)):
-                      update_score(player2.Score, id)
-                      print("p2 score ge-update")
-                  elif (player2.score > select_highscore(player2.score)):
-                      update_score(player2.Score, id)
-                      update_highscore(player2.Score, id)
-                      print("p2 highscore ge-update")
-              # player 3
-              if (check_name(player3.Name) == 0):
-                  print("doesn't exists")
-                  insert_player(player3.Name, player3.Score)
-                  id = int(select_player_id(player3.Name))
-                  insert_highscore(id, player3.Name, player3.Score)
-              elif (check_name(player3.Name) == 1):
-                  print("does exists")
-                  id = select_player_id(player3.Name)
-                  if (player3.score < select_highscore(player3.score) or player3.score == select_highscore(player3.score)):
-                      update_score(player3.Score, id)
-                      print("p3 score ge-update")
-                  elif (player3.score > select_highscore(player3.score)):
-                      update_score(player3.Score, id)
-                      update_highscore(player3.Score, id)
-                      print("p3 highscore ge-update")
-              # player 4
-              if (check_name(player4.Name) == 0):
-                  print("doesn't exists")
-                  insert_player(player4.Name, player4.Score)
-                  id = int(select_player_id(player4.Name))
-                  insert_highscore(id, player4.Name, player4.Score)
-              elif (check_name(player4.Name) == 1):
-                  print("does exists")
-                  id = select_player_id(player4.Name)
-                  if (player4.score < select_highscore(player4.score) or player4.score == select_highscore(player4.score)):
-                      update_score(player4.Score, id)
-                      print("p4 score ge-update")
-                  elif (player4.score > select_highscore(player4.score)):
-                      update_score(player4.Score, id)
-                      update_highscore(player4.Score, id)
-                      print("p4 highscore ge-update")
               unpress_all()
               players = Node(empty, empty)
+              player_turn = 0
               select_question = False
-              pygame.time.wait(100)
+              #pygame.time.wait(100)
               back_button.Pressed = False
 
           if rules_button.Pressed:
@@ -486,6 +549,7 @@ def game(color, width, height):
                  if player_turn == 3:
                      player4 = player4.update(points, stepps)
                      print("p4:",player4.Score)
+                 pygame.mixer.music.stop()
                  player_turn +=1
                  #pygame.time.wait(500)
                  select_question = False
@@ -524,6 +588,20 @@ def game(color, width, height):
                  select_question = False
              time_left -= 50
 
+          if select_question == True:
+                 if key[pygame.K_p]:
+                     coffee = True
+                     pygame.time.wait = 10
+
+          if coffee == False and select_question == True:
+                 display.blit(font.render("-Press P to get a coffee-", 1, black), (700, 550))
+
+          if coffee == True:
+                  coffeebreak(10, 10)
+                  display.blit(font.render("-Press O to drink your coffee-", 1, black), (700, 550))
+              
+                  if key[pygame.K_o]:
+                      coffee = False
           pygame.display.update()
 
 game(white, width, height)

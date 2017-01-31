@@ -38,19 +38,15 @@ class Node():
     def print_pygame(self, x, y, n): 
         """displays the list on the pygame window"""
         if (str(n) == "1"):
-            global p1
             p1 = Player(self.Value, 0, x, y)
             text = font.render(str(n) + ": " + p1.Name,1, black)
         elif (str(n) == "2"):
-            global p2
             p2 = Player(self.Value, 0, x, y)
             text = font.render(str(n) + ": " + p2.Name,1, black)
         elif (str(n) == "3"):
-            global p3
             p3 = Player(self.Value, 0, x, y)
             text = font.render(str(n) + ": " + p3.Name,1, black)
         elif (str(n) == "4"):
-            global p4
             p4 = Player(self.Value, 0, x, y)
             text = font.render(str(n) + ": " + p4.Name,1, black)
         display.blit(text, (x, y))
@@ -373,66 +369,97 @@ def game(color, width, height):
     
     #the game loop
     while not process_events():
-          key = pygame.key.get_pressed()
-          display.fill(color)
-          if player_turn >3:
-              player_turn = 0
+        key = pygame.key.get_pressed()
+        display.fill(color)
+        if player_turn >3:
+            player_turn = 0
 
-          if check_button() == False:#The menu will only apear when nothing is pressed
-                display_menu() #When you press a button the menu will disappear
+        if check_button() == False:#The menu will only apear when nothing is pressed
+            display_menu() #When you press a button the menu will disappear
          
-          if win_back_button.Pressed:
-              print ("p1:", p1.Name, "score:", p1.Score, "\n"
-                      "p2:",  p2.Name, "score:", p2.Score, "\n"
-                      "p3:", p3.Name, "score:", p3.Score, "\n"
-                      "p4:", p4.Name, "score:", p4.Score, "\n")
-              # player 1
-              print(check_name(p1.Name))
-              if (check_name(p1.Name) == 0):
-                  print("doesn't exists")
-                  insert_player(p1.Name, p1.Score)
-              elif (check_name(p1.Name) == 1):
-                  print("does exists")
-                  update_score(p1.Name, p1.Score)
-              # player 2
-              print(check_name(p2.Name))
-              if (check_name(p2.Name) == 0):
-                  print("doesn't exists")
-                  insert_player(p2.Name, p2.Score)
-              elif (check_name(p2.Name) == 1):
-                  print("does exists")
-                  update_score(p2.Name, p2.Score)
-              # player 3
-              print(check_name(p3.Name))
-              if (check_name(p3.Name) == 0):
-                  print("doesn't exists")
-                  insert_player(p3.Name, p3.Score)
-              elif (check_name(p3.Name) == 1):
-                  print("does exists")
-                  update_score(p3.Name, p3.Score)
-              # player 4
-              print(check_name(p4.Name))
-              if (check_name(p4.Name) == 0):
-                  print("doesn't exists\n")
-                  insert_player(p4.Name, p4.Score)
-              elif (check_name(p4.Name) == 1):
-                  print("does exists\n")
-                  update_score(p4.Name, p4.Score)
-              unpress_all()
-              players = Node(empty, empty)
-              player_turn = 0
-              select_question = False
-              win_back_button.Pressed = False
+        if win_back_button.Pressed:
+            print ("p1:", player1.Name, "score:", player1.Score, "\n"
+                    "p2:",  player2.Name, "score:", player2.Score, "\n"
+                    "p3:", player3.Name, "score:", player3.Score, "\n"
+                    "p4:", player4.Name, "score:", player4.Score, "\n")
+            # player 1
+            if (check_name(player1.Name) == 0):
+                print("doesn't exists")
+                insert_player(player1.Name, player1.Score)
+                id = int(select_player_id(player1.Name))
+                insert_highscore(id, player1.Name, player1.Score)
+            elif (check_name(player1.Name) == 1):
+                print("does exists")
+                id = select_player_id(player1.Name)
+                if (player1.score < select_highscore(player1.score) or player1.score == select_highscore(player1.score)):
+                    update_score(player1.Score, id)
+                    print("p1 score ge-update")
+                elif (player1.score > select_highscore(player1.score)):
+                    update_score(player1.Score, id)
+                    update_highscore(player1.Score, id)
+                    print("p1 highscore ge-update")
+            # player 2
+            if (check_name(player2.Name) == 0):
+                print("doesn't exists")
+                insert_player(player2.Name, player2.Score)
+                id = int(select_player_id(player2.Name))
+                insert_highscore(id, player2.Name, player2.Score)
+            elif (check_name(player2.Name) == 1):
+                print("does exists")
+                id = select_player_id(player1.Name)
+                if (player2.score < select_highscore(player2.score) or player2.score == select_highscore(player2.score)):
+                    update_score(player2.Score, id)
+                    print("p2 score ge-update")
+                elif (player2.score > select_highscore(player2.score)):
+                    update_score(player2.Score, id)
+                    update_highscore(player2.Score, id)
+                    print("p2 highscore ge-update")
+            # player 3
+            if (check_name(player3.Name) == 0):
+                print("doesn't exists")
+                insert_player(player3.Name, player3.Score)
+                id = int(select_player_id(player3.Name))
+                insert_highscore(id, player3.Name, player3.Score)
+            elif (check_name(player3.Name) == 1):
+                print("does exists")
+                id = select_player_id(player3.Name)
+                if (player3.score < select_highscore(player3.score) or player3.score == select_highscore(player3.score)):
+                    update_score(player3.Score, id)
+                    print("p3 score ge-update")
+                elif (player3.score > select_highscore(player3.score)):
+                    update_score(player3.Score, id)
+                    update_highscore(player3.Score, id)
+                    print("p3 highscore ge-update")
+            # player 4
+            if (check_name(player4.Name) == 0):
+                print("doesn't exists")
+                insert_player(player4.Name, player4.Score)
+                id = int(select_player_id(player4.Name))
+                insert_highscore(id, player4.Name, player4.Score)
+            elif (check_name(player4.Name) == 1):
+                print("does exists")
+                id = select_player_id(player4.Name)
+                if (player4.score < select_highscore(player4.score) or player4.score == select_highscore(player4.score)):
+                    update_score(player4.Score, id)
+                    print("p4 score ge-update")
+                elif (player4.score > select_highscore(player4.score)):
+                    update_score(player4.Score, id)
+                    update_highscore(player4.Score, id)
+                    print("p4 highscore ge-update")
+            unpress_all()
+            players = Node(empty, empty)
+            player_turn = 0
+            select_question = False
+            win_back_button.Pressed = False
 
-
-          if start_button.Pressed and players.length() < 4:
+        if start_button.Pressed and players.length() < 4:
              players = player_list(1)
              player1 = Player(players.select(0), 0, x_set,y_set)
              player2 = Player(players.select(1), 0, x_set+180,y_set)
              player3 = Player(players.select(2), 0, x_set+360,y_set)
              player4 = Player(players.select(3), 0, x_set+540,y_set)
           
-          if start_button.Pressed:
+        if start_button.Pressed:
               display.blit(background,(0,0))
               back() 
               display.blit(dice.select(stepps), (870, 130))
@@ -468,7 +495,7 @@ def game(color, width, height):
                      display.blit(font.render(player4.Name + " Your score is: " + str(player4.Score), 1, black), (300, 150))
                      display.blit(font.render("And these are the losers: " +player2.Name + ", " + player3.Name + " and "+ player1.Name, 1, black), (200, 250))         
 
-          if back_button.Pressed : #The back button resets all buttons and clears the player list
+        if back_button.Pressed : #The back button resets all buttons and clears the player list
               unpress_all()
               players = Node(empty, empty)
               player_turn = 0
@@ -477,7 +504,7 @@ def game(color, width, height):
               back_button.Pressed = False
               
 
-          if rules_button.Pressed:
+        if rules_button.Pressed:
               if rules_button.Pressed: #Shows the rules of the game including a next button
                    display.fill(color)
                    rules(width - 200,0)
@@ -489,10 +516,10 @@ def game(color, width, height):
                          rules1(width-200,0)
                          back()
 
-          if exit_button.Pressed:
+        if exit_button.Pressed:
               sys.exit()
 
-          if start_button.Pressed and key[pygame.K_SPACE] and select_question == False:           
+        if start_button.Pressed and key[pygame.K_SPACE] and select_question == False:           
              stepps = random.randint(0,5)
              select_question = True
              time_left = 50000
@@ -501,7 +528,7 @@ def game(color, width, height):
              pygame.mixer.music.load('thinking.mp3')
              pygame.mixer.music.play()
 
-          if select_question == True and not key[pygame.K_SPACE] and coffee == False:
+        if select_question == True and not key[pygame.K_SPACE] and coffee == False:
              time_text = str(time_left // 1000)
              pygame.draw.circle(display, kind_of_brown, (950, 350), 50)
              display.blit(font.render(time_text, 1,black), (940, 340))
@@ -514,19 +541,15 @@ def game(color, width, height):
                  print("Question good")
                  if player_turn == 0:
                      player1 = player1.update(points, stepps)
-                     p1.Score = player1.Score
                      print("p1:",player1.Score)
                  if player_turn == 1:
                      player2 = player2.update(points, stepps)
-                     p2.Score = player2.Score
                      print("p2:",player2.Score)
                  if player_turn == 2:
                      player3 = player3.update(points, stepps)
-                     p3.Score = player3.Score
                      print("p3:",player3.Score)
                  if player_turn == 3:
                      player4 = player4.update(points, stepps)
-                     p4.Score = player4.Score
                      print("p4:",player4.Score)
                  pygame.mixer.music.stop()
                  player_turn +=1
@@ -538,59 +561,51 @@ def game(color, width, height):
                      player1 = player1.update(-points, -stepps)
                      if player1.Score < 0:
                          player1 = player1.reset_score()
-                         p1.Score = 0
                      if player1.Y > y_set:
                          player1 = player1.reset_pos()
-                     p1.Score = player1.Score
-                     print("p1:",p1.Score)
+                     print("p1:",player1.Score)
                  if player_turn == 1:
                      player2 = player2.update(-points, -stepps)
                      if player2.Score < 0:
                          player2 = player2.reset_score()
-                         p2.Score = 0
                      if player2.Y > y_set:
                          player2 = player2.reset_pos()
-                     p2.Score = player2.Score
-                     print("p2:",p2.Score)
+                     print("p2:",player2.Score)
                  if player_turn == 2:
                      player3 = player3.update(-points, -stepps)
                      if player3.Score < 0:
                          player3 = player3.reset_score()
-                         p3.Score = 0
                      if player3.Y > y_set:
                          player3 = player3.reset_pos()
-                     p3.Score = player3.Score
-                     print("p3:",p3.Score)
+                     print("p3:",player3.Score)
                  if player_turn == 3:
                      player4 = player4.update(-points, -stepps)
                      if player4.Score < 0:
                          player4 = player4.reset_score()
-                         p4.Score = 0
                      if player4.Y > y_set:
                          player4 = player4.reset_pos()
-                     p4.Score = player4.Score
-                     print("p4:",p4.Score)
+                     print("p4:",player4.Score)
                  pygame.mixer.music.stop()
                  player_turn += 1
                  #pygame.time.wait(500)
                  select_question = False
              time_left -= 50
 
-          if select_question == True:
+        if select_question == True:
                  if key[pygame.K_p]:
                      coffee = True
                      pygame.time.wait = 10
 
-          if coffee == False and select_question == True:
+        if coffee == False and select_question == True:
                  display.blit(font.render("-Press P to get a coffee-", 1, black), (700, 550))
 
-          if coffee == True:
+        if coffee == True:
                   coffeebreak(10, 10)
                   display.blit(font.render("-Press O to drink your coffee-", 1, black), (700, 550))
               
                   if key[pygame.K_o]:
                       coffee = False
-          pygame.display.update()
+        pygame.display.update()
 
 game(white, width, height)
 
