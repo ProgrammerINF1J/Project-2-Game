@@ -18,6 +18,7 @@ dice4Img = pygame.image.load('Dobbel4.png')
 dice5Img = pygame.image.load('Dobbel5.png')
 dice6Img = pygame.image.load('Dobbel6.png')
 background = pygame.image.load('background.png')
+coffeeImg = pygame.image.load("coffee.png")
 
 #color library
 white = 255, 255, 255
@@ -34,7 +35,7 @@ turquise = 75, 220, 230
 yellow = 225, 200, 10
 kind_of_brown = 210, 200,110
 x_set = 150
-y_set = 400
+y_set = 40
 
 # fonts
 font = pygame.font.Font(None, 30)#Grote text, wordt gebruikt voor de buttons

@@ -45,9 +45,12 @@
     <Content Include="pictures\Knipsel1.png" />
     <Content Include="pictures\Knipsel2.png" />
     <Content Include="pictures\skyline.png" />
+    <Content Include="sounds\coffee.wav" />
+    <Content Include="sounds\thinking.mp3" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="pictures\" />
+    <Folder Include="sounds\" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="{2af0f10d-7135-4994-9156-5d01c9c11b7e}\3.2" />

@@ -1,3 +1,4 @@
+# database 'pygame'
 drop table if exists player, highscore; 
 create table if not exists player ( 
 	p_id SERIAL primary key, 

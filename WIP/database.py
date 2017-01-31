@@ -1,7 +1,7 @@
 import psycopg2, psycopg2.extras, sys
 
 try:
-    conn = psycopg2.connect("dbname='pygame' user='postgres' password='root'")
+    conn = psycopg2.connect("dbname='pygame' user='postgres' password='mydatabase'")
 except:
     print ("no connection")
 
