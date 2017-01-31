@@ -388,7 +388,7 @@ def game(color, width, height):
             if (check_name(player1.Name) == 0):
                 print("doesn't exists")
                 insert_player(player1.Name, player1.Score)
-                id = int(select_player_id(player1.Name))
+                id = select_player_id(player1.Name)
                 insert_highscore(id, player1.Name, player1.Score)
             elif (check_name(player1.Name) == 1):
                 print("does exists")
@@ -404,50 +404,50 @@ def game(color, width, height):
             if (check_name(player2.Name) == 0):
                 print("doesn't exists")
                 insert_player(player2.Name, player2.Score)
-                id = int(select_player_id(player2.Name))
+                id = select_player_id(player2.Name)
                 insert_highscore(id, player2.Name, player2.Score)
             elif (check_name(player2.Name) == 1):
                 print("does exists")
                 id = select_player_id(player2.Name)
                 if (player2.Score < select_highscore(player2.Name) or player2.Score == select_highscore(player2.Name)):
                     update_score(player2.Score, id)
-                    print("p1 score ge-update")
-                elif (player2.Score > select_highscore(player2.Score)):
+                    print("p2 score ge-update")
+                elif (player2.Score > select_highscore(player2.Name)):
                     update_score(player2.Score, id)
                     update_highscore(player2.Score, id)
-                    print("p1 highscore ge-update")
+                    print("p2 highscore ge-update")
             # player 3
             if (check_name(player3.Name) == 0):
                 print("doesn't exists")
                 insert_player(player3.Name, player3.Score)
-                id = int(select_player_id(player3.Name))
+                id = select_player_id(player3.Name)
                 insert_highscore(id, player3.Name, player3.Score)
             elif (check_name(player3.Name) == 1):
                 print("does exists")
                 id = select_player_id(player3.Name)
                 if (player3.Score < select_highscore(player3.Score) or player3.Name == select_highscore(player3.Name)):
                     update_score(player3.Score, id)
-                    print("p1 score ge-update")
+                    print("p3 score ge-update")
                 elif (player3.Score > select_highscore(player3.Score)):
                     update_score(player3.Score, id)
                     update_highscore(player3.Score, id)
-                    print("p1 highscore ge-update")
+                    print("p3 highscore ge-update")
             # player 4
             if (check_name(player4.Name) == 0):
                 print("doesn't exists")
                 insert_player(player4.Name, player4.Score)
-                id = int(select_player_id(player4.Name))
+                id = select_player_id(player4.Name)
                 insert_highscore(id, player4.Name, player4.Score)
             elif (check_name(player1.Name) == 1):
                 print("does exists")
                 id = select_player_id(player4.Name)
                 if (player4.Score < select_highscore(player4.Score) or player4.Name == select_highscore(player4.Name)):
                     update_score(player4.Score, id)
-                    print("p1 score ge-update")
+                    print("p4 score ge-update")
                 elif (player4.Score > select_highscore(player4.Score)):
                     update_score(player4.Score, id)
                     update_highscore(player4.Score, id)
-                    print("p1 highscore ge-update")
+                    print("p4 highscore ge-update")
             unpress_all()
             players = Node(empty, empty)
             player_turn = 0
