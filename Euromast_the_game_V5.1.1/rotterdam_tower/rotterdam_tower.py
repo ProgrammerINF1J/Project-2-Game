@@ -318,10 +318,10 @@ def print_list(list):
     return tmp_list
 
 def rules(x,y):
-    display.blit(rulesImg, (x *0,5,y*0,5))
+    display.blit(rulesImg, (x,y))
 
 def rules1(x,y):
-    display.blit(rulesImg1, (x*0,5,y*0,5))
+    display.blit(rulesImg1, (x,y))
 
 def player_list(amount_players):
     """Returns a list of all players, including names starts with 1 and ends with 4"""
@@ -528,13 +528,13 @@ def game(color, width, height):
           if rules_button.Pressed:
               if rules_button.Pressed: #Shows the rules of the game including a next button
                    display.fill(color)
-                   rules(width - 200,0)
+                   rules(0,0)
                    rules_button2.draw(display)
                    rules_button2.mouse_event(display, light_blue)
                    rules_button2.draw_text("Next", display)
                    if rules_button2.Pressed: #If the next button pressed show more rules and back button
                          display.fill(color)
-                         rules1(width-200,0)
+                         rules1(0,0)
                          back()
 
           if exit_button.Pressed:#if the exit button is pressed the pygame window closes
