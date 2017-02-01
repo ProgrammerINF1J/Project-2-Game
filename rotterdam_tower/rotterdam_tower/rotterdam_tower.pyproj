@@ -32,6 +32,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="database.txt" />
+    <Content Include="fonts\ITCKRIST.TTF" />
+    <Content Include="fonts\kristen-itc.png" />
     <Content Include="pictures\background.png" />
     <Content Include="pictures\coffee.png" />
     <Content Include="pictures\Dobbel1.png" />
