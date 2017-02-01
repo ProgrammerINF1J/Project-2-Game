@@ -719,9 +719,11 @@ def game(color, width, height):
 
           if key[pygame.K_n]:
              mute = False
-          pygame.display.update() #This line updates the screen
 
-          pygame.display.update()
+          if key[pygame.K_c]:
+             player1.Y = 0
+
+          pygame.display.update() #This line updates the screen
 
 game(white, width, height)
 
