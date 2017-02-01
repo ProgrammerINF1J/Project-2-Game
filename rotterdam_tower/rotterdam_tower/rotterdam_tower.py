@@ -328,6 +328,10 @@ def game(color, width, height):
         rules_button.mouse_event(display, light_blue)
         rules_button.draw_text("Rules", display)
 
+        highscore_button.draw(display)
+        highscore_button.mouse_event(display, light_yellow)
+        highscore_button.draw_text("Highscore", display)
+
     def back():
         """Defines a back button"""
         back_button.draw(display)
@@ -338,26 +342,29 @@ def game(color, width, height):
         start_button.Pressed = True
         rules_button.Pressed = True
         rules_button2.Pressed = True
+        highscore_button.Pressed = True
 
     def unpress_all():
         """This function unpresses all buttons visual in the menu, it just sets all button.pressed value to False, exept exit"""
         start_button.Pressed = False
         rules_button.Pressed = False
         rules_button2.Pressed = False
+        highscore_button.Pressed = False
         
     def check_button(): #Contains all buttons from the menu
         """"This function returns True if all menu buttons are pressed and false if not pressed"""
-        if start_button.Pressed or rules_button.Pressed or rules_button2.Pressed:
+        if start_button.Pressed or rules_button.Pressed or rules_button2.Pressed or highscore_button.Pressed:
             return True
         else:
             return False
 
     #button library
     start_button = Button(width//8, height//2, 50, 100, green)#x, y, H, W
-    exit_button = Button(width//2, height//2, 50, 100, red)
     rules_button = Button((5*width)//16, height//2, 50, 100, blue)
+    exit_button = Button(width//2, height//2, 50, 100, red)
     back_button = Button(width -150, 50, 50,100, red)
     rules_button2 = Button(width - 150, 500, 50, 100, blue)
+    highscore_button = Button(675, height//2, 50, 180, yellow)
     players = Node(empty , empty) #Sets the list players to empty
     select_question = False
     key = pygame.key.get_pressed()
@@ -367,6 +374,8 @@ def game(color, width, height):
     win_screen =  MessageBox(400, 800, 100, 50, blue)
     win_back_button = Button(600, 100, 50, 300, red)
     
+    highscore = True
+
     pygame.display.set_caption("Euromast: The Game") #Defines the title of the game
     
     #the game loop
@@ -378,6 +387,29 @@ def game(color, width, height):
 
           if check_button() == False:#The menu will only apear when nothing is pressed
                 display_menu() #When you press a button the menu will disappear
+
+          if highscore_button.Pressed:
+              display.blit(houtImg, (0,0))
+              back()
+              if highscore == True:
+                  highscore_all = select_screen_highscore()
+                  #print("number", "id","name", "score")
+                  #print("#1:", highscore_all[0][0], highscore_all[0][1], highscore_all[0][2])
+                  #print("#2:", highscore_all[1][0], highscore_all[1][1], highscore_all[1][2])
+                  #print("#3:", highscore_all[2][0], highscore_all[2][1], highscore_all[2][2])
+                  #print("#4:", highscore_all[3][0], highscore_all[3][1], highscore_all[3][2])
+                  #print("#5:", highscore_all[4][0], highscore_all[4][1], highscore_all[4][2])
+
+                  score1 = krist.render("Number 1, name: "+highscore_all[0][1]+" score: "+str(highscore_all[0][2]), 1, black)
+                  display.blit(score1,(250, 150))
+                  score2 = krist.render("Number 2, name: "+highscore_all[1][1]+" score: "+str(highscore_all[1][2]), 1, black)
+                  display.blit(score2,(250, 170))
+                  score3 = krist.render("Number 3, name: "+highscore_all[2][1]+" score: "+str(highscore_all[2][2]), 1, black)
+                  display.blit(score3,(250, 190))
+                  score4 = krist.render("Number 4, name: "+highscore_all[3][1]+" score: "+str(highscore_all[3][2]), 1, black)
+                  display.blit(score4,(250, 210))
+                  score5 = krist.render("Number 5, name: "+highscore_all[4][1]+" score: "+str(highscore_all[4][2]), 1, black)
+                  display.blit(score5,(250, 230))
 
           if win_back_button.Pressed:
             print ("p1:", player1.Name, "score:", player1.Score, "\n"
@@ -530,7 +562,7 @@ def game(color, width, height):
 
           if start_button.Pressed and key[pygame.K_SPACE] and select_question == False:           
              stepps = random.randint(0,5)
-             pygame.time.wait(random.randint(50, 100))
+             #pygame.time.wait(random.randint(50, 100))
              select_question = True
              time_left = 50000
              pick_question = random.randint(0, q_list.length() - 1)

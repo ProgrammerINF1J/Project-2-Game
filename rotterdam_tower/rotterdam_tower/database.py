@@ -63,6 +63,16 @@ def select_highscore(name):
     result = cch.fetchall()    for row in result:
         return row[0]
 
+# select highscore for highscore screen
+def select_screen_highscore():
+    try:
+        cch.execute("select h_id, h_name, h_score from highscore order by h_score desc limit 5")
+    except Exception as error:
+        return(error)
+    conn.commit()
+    result = cch.fetchall()
+    return result
+
 # update player_score
 def update_score(score, id):
     try:

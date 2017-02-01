@@ -19,6 +19,7 @@ dice5Img = pygame.image.load('pictures/Dobbel5.png')
 dice6Img = pygame.image.load('pictures/Dobbel6.png')
 background = pygame.image.load('pictures/background.png')
 coffeeImg = pygame.image.load("pictures/coffee.png")
+houtImg = pygame.image.load("pictures/PlakjeHout.png")
 
 #color library
 white = 255, 255, 255
@@ -33,6 +34,7 @@ orange = 230, 100, 20
 light_orange = 230, 120, 60
 turquise = 75, 220, 230
 yellow = 225, 200, 10
+light_yellow = 255, 255, 153
 kind_of_brown = 210, 200,110
 x_set = 150
 y_set = 400
@@ -41,6 +43,7 @@ y_set = 400
 font = pygame.font.Font(None, 30)#Grote text, wordt gebruikt voor de buttons
 font2 = pygame.font.Font(None, 20)#Kleine text, wordt gebruikt voor het input scherm
 font3 = pygame.font.Font(None, 70)
+krist = pygame.font.SysFont("ITCKRIST.TTF", 30)
 
 clock = pygame.time.Clock()
 closed = False
