@@ -405,6 +405,7 @@ def game(color, width, height):
     coffee = False
     win_screen =  MessageBox(400, 800, 100, 50, blue)
     win_back_button = Button(600, 100, 50, 300, red)
+    mute = False
     
     pygame.display.set_caption("Euromast: The Game") #Defines the title of the game
     
@@ -616,6 +617,15 @@ def game(color, width, height):
                   if key[pygame.K_o]:#Press o unpauses the game
                       effect.stop()
                       coffee = False
+
+          if key[pygame.K_m]:
+             mute = True
+
+          if mute == True:
+            pygame.mixer.stop()
+
+          if key[pygame.K_n]:
+             mute = False
           pygame.display.update() #This line updates the screen
 
 #calling the game function
