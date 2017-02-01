@@ -46,6 +46,7 @@
     <Content Include="pictures\Knipsel2.png" />
     <Content Include="pictures\PlakjeHout.png" />
     <Content Include="pictures\skyline.png" />
+    <Content Include="pictures\stuiter.png" />
     <Content Include="sounds\click.wav" />
     <Content Include="sounds\coffee.wav" />
     <Content Include="sounds\fault.wav" />

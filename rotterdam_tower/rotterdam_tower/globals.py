@@ -19,6 +19,8 @@ dice5Img = pygame.image.load('pictures/Dobbel5.png')
 dice6Img = pygame.image.load('pictures/Dobbel6.png')
 background = pygame.image.load('pictures/background.png')
 coffeeImg = pygame.image.load("pictures/coffee.png")
+effect = pygame.mixer.Sound('sounds/coffee.wav') 
+ball = pygame.image.load("pictures/stuiter.png")
 houtImg = pygame.image.load("pictures/PlakjeHout.png")
 
 #color library
