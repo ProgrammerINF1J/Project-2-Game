@@ -158,10 +158,24 @@ question34 = Node("Can you answer this question right?", Node("Yes", Node("Yes",
 question35 = Node("Can you answer THIS question right?", Node("No", Node("Offcourse not", Node("Absolutly not", Node("No way", Node("yes", empty))))))
 question36 = Node("What is the quadratic formula?", Node("(-b+-(D^0,5)/2a)", Node("sin(x^2)/5", Node("2pi*r^2", Node("a^2 + b^2 = c^2", Node("(-b+-(D^0,5)/2a)", empty))))))
 question37 = Node("dh3uh838hdnxmnxmsnmsnmndmsnwdn383#Ed3d#$#%^$(*^$...?", Node("#DRD#r3w2@@w", Node("D#DW@SWSSDSDdw", Node("3$Ddwdsdd3@2dd", Node("ddjskjd9du83ud", Node("3$Ddwdsdd3@2dd", empty))))))
+question38 = Node("What is the house number of the Hogeschool Rotterdam?", Node("232", Node("117", Node("234", Node("-32", Node("117", empty))))))
+question39 = Node("What is the name of this game?", Node("Rotterdam: The game", Node("GTA 5", Node("CSGO", Node("Euromast: The game", Node("Euromast: The game", empty))))))
+question40 = Node("How high is the Euromast?", Node("High", Node("Verry high", Node("Tremendous", Node("Not so high", Node("Tremendous", empty))))))
+question41 = Node("How many stepps does the stair of the euromast have?", Node("732", Node("123", Node("589", Node("892", Node("589", empty))))))
+question42 = Node("How high is the Euromast for real?", Node("300 meter", Node("0,185 kilometer", Node("930 meter", Node("493 meter", Node("0,185 kilometer", empty))))))
+question43 = Node("Who designed the Euromast?", Node("Bert Rijnoever", Node("Frank Scheldewater", Node("Sjaak Trekhaak", Node("Huig Maaskant", Node("Huig Maaskant", empty))))))
+question44 = Node("How do you say Rotterdam in slang?", Node("Rotta", Node("Rodda", Node("Roffa", Node("Rovva", Node("Roffa", empty))))))
+question45 = Node("What is squarroot of 5", Node("2,23", Node("2,24", Node("2,22", Node("2,25", Node("2,24", empty))))))
+question46 = Node("On wich day has the question been written?", Node("19:23 18-1-2017", Node("13:28 1-2-2017", Node("00:00 3-5-1956", Node("12:35 28-1-2017", Node("13:28 1-2-2017", empty))))))
+question47 = Node("Would you recommend this game to others?", Node("Yes, offcourse", Node("Yes, It's the best game ever", Node("No, why should I", Node("No, No and no!!", Node("Yes, It's the best game ever", empty))))))
+question48 = Node("Wich button is the B button?", Node("A", Node("C", Node("B", Node("D", Node("C", empty))))))
+question49 = Node("?", Node("!", Node("@", Node("#", Node("$", Node("#", empty))))))
+question50 = Node("What was Wim Alders his job?", Node("Painter", Node("Baker", Node("Comedian", Node("Politician", Node("Politician", empty))))))
 # Node("", Node("", Node("", Node("", Node("", Node("", empty)))))) standard question = [Q, A, B, C, D, answer, empty]
 
 #Put al questions in a list, this is where the computer selects the question from
-q_list = Node(question1, Node(question2, Node(question3, Node(question4, Node(question5, Node(question6, Node(question7, Node(question8, Node(question9, Node(question10, Node(question11, Node(question12, Node(question13, Node(question14, Node(question15, Node(question16, Node(question17, Node(question18, Node(question19, Node(question20, Node(question21, Node(question22, Node(question23,Node(question24, Node(question25, Node(question26, Node(question27, Node(question28, Node(question29, Node(question30, Node(question31, Node(question32, Node(question33, Node(question34, Node(question35, Node(question36, Node(question37, empty)))))))))))))))))))))))))))))))))))))
+q_list = Node(question1, Node(question2, Node(question3, Node(question4, Node(question5, Node(question6, Node(question7, Node(question8, Node(question9, Node(question10, Node(question11, Node(question12, Node(question13, Node(question14, Node(question15, Node(question16, Node(question17, Node(question18, Node(question19, Node(question20, Node(question21, Node(question22, Node(question23,Node(question24, Node(question25, Node(question26, Node(question27, Node(question28, Node(question29, Node(question30, Node(question31, Node(question32, Node(question33, Node(question34, Node(question35, Node(question36, Node(question37, Node(question38,  Node(question39,  Node(question40,  Node(question41,  Node(question42,  Node(question43,  Node(question44,  Node(question45,  Node(question46,  Node(question47,  Node(question48,  Node(question49,  Node(question50, empty))))))))))))))))))))))))))))))))))))))))))))))))))
+
 
 #Dice, puts the different images from the dice in a list
 dice = Node(dice1Img, Node(dice2Img, Node(dice3Img, Node(dice4Img, Node(dice5Img, Node(dice6Img, empty))))))
