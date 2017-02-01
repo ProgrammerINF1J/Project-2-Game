@@ -393,23 +393,18 @@ def game(color, width, height):
               back()
               if highscore == True:
                   highscore_all = select_screen_highscore()
-                  #print("number", "id","name", "score")
-                  #print("#1:", highscore_all[0][0], highscore_all[0][1], highscore_all[0][2])
-                  #print("#2:", highscore_all[1][0], highscore_all[1][1], highscore_all[1][2])
-                  #print("#3:", highscore_all[2][0], highscore_all[2][1], highscore_all[2][2])
-                  #print("#4:", highscore_all[3][0], highscore_all[3][1], highscore_all[3][2])
-                  #print("#5:", highscore_all[4][0], highscore_all[4][1], highscore_all[4][2])
-
+                  titel = krist.render("Highscore top 5", 1, black)
+                  display.blit(titel,(400, 55))
                   score1 = krist.render("Number 1, name: "+highscore_all[0][1]+" score: "+str(highscore_all[0][2]), 1, black)
-                  display.blit(score1,(250, 150))
+                  display.blit(score1,(300, 120))
                   score2 = krist.render("Number 2, name: "+highscore_all[1][1]+" score: "+str(highscore_all[1][2]), 1, black)
-                  display.blit(score2,(250, 170))
+                  display.blit(score2,(300, 183))
                   score3 = krist.render("Number 3, name: "+highscore_all[2][1]+" score: "+str(highscore_all[2][2]), 1, black)
-                  display.blit(score3,(250, 190))
+                  display.blit(score3,(300, 245))
                   score4 = krist.render("Number 4, name: "+highscore_all[3][1]+" score: "+str(highscore_all[3][2]), 1, black)
-                  display.blit(score4,(250, 210))
+                  display.blit(score4,(300, 309))
                   score5 = krist.render("Number 5, name: "+highscore_all[4][1]+" score: "+str(highscore_all[4][2]), 1, black)
-                  display.blit(score5,(250, 230))
+                  display.blit(score5,(300, 365))
 
           if win_back_button.Pressed:
             print ("p1:", player1.Name, "score:", player1.Score, "\n"

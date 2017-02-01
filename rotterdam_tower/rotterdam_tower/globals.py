@@ -22,7 +22,7 @@ coffeeImg = pygame.image.load("pictures/coffee.png")
 houtImg = pygame.image.load("pictures/PlakjeHout.png")
 
 #color library
-white = 255, 255, 255
+white = 255, 255, 255 
 black = 0, 0, 0
 green = 0, 255, 0
 light_green = 107, 255, 129
@@ -43,7 +43,7 @@ y_set = 400
 font = pygame.font.Font(None, 30)#Grote text, wordt gebruikt voor de buttons
 font2 = pygame.font.Font(None, 20)#Kleine text, wordt gebruikt voor het input scherm
 font3 = pygame.font.Font(None, 70)
-krist = pygame.font.SysFont("ITCKRIST.TTF", 30)
+krist = pygame.font.Font("fonts/ITCKRIST.TTF", 30)
 
 clock = pygame.time.Clock()
 closed = False

@@ -42,6 +42,7 @@
     <Content Include="pictures\Dobbel6.png" />
     <Content Include="pictures\Knipsel1.png" />
     <Content Include="pictures\Knipsel2.png" />
+    <Content Include="pictures\PlakjeHout.png" />
     <Content Include="pictures\skyline.png" />
     <Content Include="sounds\click.wav" />
     <Content Include="sounds\coffee.wav" />
@@ -52,6 +53,7 @@
     <Content Include="sounds\winning.wav" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="fonts\" />
     <Folder Include="pictures\" />
     <Folder Include="sounds\" />
   </ItemGroup>
