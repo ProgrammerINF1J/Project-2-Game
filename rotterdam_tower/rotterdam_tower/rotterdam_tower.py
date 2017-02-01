@@ -390,13 +390,14 @@ def game(color, width, height):
                 insert_player(player1.Name, player1.Score)
                 id = select_player_id(player1.Name)
                 insert_highscore(id, player1.Name, player1.Score)
+                print("score and highscore ge-update van id:", id)
             elif (check_name(player1.Name) == 1):
                 print("does exists")
                 id = select_player_id(player1.Name)
                 if (player1.Score < select_highscore(player1.Name) or player1.Score == select_highscore(player1.Name)):
                     update_score(player1.Score, id)
                     print("p1 score ge-update")
-                elif (player1.Score > select_highscore(player1.Name)):
+                if (player1.Score > select_highscore(player1.Name)):
                     update_score(player1.Score, id)
                     update_highscore(player1.Score, id)
                     print("p1 highscore ge-update")
@@ -406,13 +407,14 @@ def game(color, width, height):
                 insert_player(player2.Name, player2.Score)
                 id = select_player_id(player2.Name)
                 insert_highscore(id, player2.Name, player2.Score)
+                print("score and highscore ge-update van id:", id)
             elif (check_name(player2.Name) == 1):
                 print("does exists")
                 id = select_player_id(player2.Name)
                 if (player2.Score < select_highscore(player2.Name) or player2.Score == select_highscore(player2.Name)):
                     update_score(player2.Score, id)
                     print("p2 score ge-update")
-                elif (player2.Score > select_highscore(player2.Name)):
+                if (player2.Score > select_highscore(player2.Name)):
                     update_score(player2.Score, id)
                     update_highscore(player2.Score, id)
                     print("p2 highscore ge-update")
@@ -422,13 +424,14 @@ def game(color, width, height):
                 insert_player(player3.Name, player3.Score)
                 id = select_player_id(player3.Name)
                 insert_highscore(id, player3.Name, player3.Score)
+                print("score and highscore ge-update van id:", id)
             elif (check_name(player3.Name) == 1):
                 print("does exists")
                 id = select_player_id(player3.Name)
-                if (player3.Score < select_highscore(player3.Score) or player3.Name == select_highscore(player3.Name)):
+                if (player3.Score < select_highscore(player3.Name) or player3.Score == select_highscore(player3.Name)):
                     update_score(player3.Score, id)
                     print("p3 score ge-update")
-                elif (player3.Score > select_highscore(player3.Score)):
+                if (player3.Score > select_highscore(player3.Name)):
                     update_score(player3.Score, id)
                     update_highscore(player3.Score, id)
                     print("p3 highscore ge-update")
@@ -438,13 +441,14 @@ def game(color, width, height):
                 insert_player(player4.Name, player4.Score)
                 id = select_player_id(player4.Name)
                 insert_highscore(id, player4.Name, player4.Score)
-            elif (check_name(player1.Name) == 1):
+                print("score and highscore ge-update van id:", id)
+            elif (check_name(player4.Name) == 1):
                 print("does exists")
                 id = select_player_id(player4.Name)
-                if (player4.Score < select_highscore(player4.Score) or player4.Name == select_highscore(player4.Name)):
+                if (player4.Score < select_highscore(player4.Name) or player4.Score == select_highscore(player4.Name)):
                     update_score(player4.Score, id)
                     print("p4 score ge-update")
-                elif (player4.Score > select_highscore(player4.Score)):
+                if (player4.Score > select_highscore(player4.Name)):
                     update_score(player4.Score, id)
                     update_highscore(player4.Score, id)
                     print("p4 highscore ge-update")
@@ -496,10 +500,10 @@ def game(color, width, height):
                       display.blit(font.render("And these are the losers: " +player1.Name + ", "+ player3.Name + " and "+ player4.Name, 1, black), (200, 250))
                   if player3.Y < 20:
                       display.blit(font.render(player3.Name + " Your score is: " + str(player3.Score), 1, black), (300, 150))
-                      display.blit(font.render("And these are the losers: " +player2.Name + ", " + player1.Name + " and " + player4.Name, 1, black), (200, 250))
+                      display.blit(font.render("And these are the losers: " +player1.Name + ", " + player2.Name + " and " + player4.Name, 1, black), (200, 250))
                   if player4.Y < 20:
                      display.blit(font.render(player4.Name + " Your score is: " + str(player4.Score), 1, black), (300, 150))
-                     display.blit(font.render("And these are the losers: " +player2.Name + ", " + player3.Name + " and "+ player1.Name, 1, black), (200, 250))         
+                     display.blit(font.render("And these are the losers: " +player1.Name + ", " + player2.Name + " and "+ player3.Name, 1, black), (200, 250))         
              
           if back_button.Pressed: #The back button resets all buttons and clears the player list
               unpress_all()
