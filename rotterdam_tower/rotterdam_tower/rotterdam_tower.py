@@ -721,7 +721,7 @@ def game(color, width, height):
              mute = False
 
           if key[pygame.K_c]:
-             player1.Y = 0
+             player1.Y = 20
 
           pygame.display.update() #This line updates the screen
 

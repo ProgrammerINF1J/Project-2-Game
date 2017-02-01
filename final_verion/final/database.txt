@@ -1,0 +1,23 @@
+-- database 'pygame'
+drop table if exists player, highscore; 
+create table if not exists player ( 
+	p_id SERIAL primary key, 
+    p_name varchar(14), 
+	p_score int
+); 
+create table if not exists highscore ( 
+	h_id SERIAL primary key, 
+    h_name varchar(14), 
+    h_score int 
+); 
+insert into player (p_name, p_score) values ('player1', 0), ('player2', 0), ('player3', 0), ('player4', 0); 
+insert into highscore (h_name, h_score) values ('player1', 0), ('player2', 0), ('player3', 0), ('player4', 0);
+select p_id, p_name, p_score, h_score from player, highscore where p_id = h_id order by p_id;
+-- select * from player 
+
+-- select p_id, p_name, p_score, h_score from player, highscore where p_id = h_id order by h_score desc;
+-- select * from player order by p_score desc
+-- select h_id, h_name, h_score from highscore order by h_score desc
+
+-- UPDATE player SET score=0 WHERE name='player1'; 
+-- ALTER TABLE player ADD highscore INT;
